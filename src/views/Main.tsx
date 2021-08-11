@@ -1,7 +1,7 @@
 import React from 'react';
 
-const LoadBtn = () => {
+const Main = () => {
   return <div></div>;
 };
 
-export default LoadBtn;
+export default Main;
