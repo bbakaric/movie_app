@@ -15,11 +15,11 @@ const LoadBtn = (): any => {
     <div>
       <button
         onClick={() => {
-          dispatch(loadMovies(page));
           handlePage();
+          dispatch(loadMovies(page));
         }}
       >
-        Load more
+        LOAD
       </button>
     </div>
   );

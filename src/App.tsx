@@ -2,7 +2,11 @@ import React from 'react';
 import Main from './views/Main';
 
 const App = (): any => {
-  return <Main />;
+  return (
+    <div>
+      <Main />
+    </div>
+  );
 };
 
 export default App;

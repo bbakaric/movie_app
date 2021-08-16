@@ -10,4 +10,9 @@ interface LoadMoreMoviesAction {
   payload: Array<object>;
 }
 
-export type Action = GetMoviesAction | LoadMoreMoviesAction;
+interface ShowModalAction {
+  type: ActionType.SHOW_MODAL;
+  payload: boolean;
+}
+
+export type Action = GetMoviesAction | LoadMoreMoviesAction | ShowModalAction;

@@ -25,3 +25,10 @@ export const loadMovies =
       payload: response.data.results,
     });
   };
+
+export const showModal = (show) => async (dispatch: Dispatch) => {
+  dispatch({
+    type: ActionType.SHOW_MODAL,
+    payload: show,
+  });
+};
