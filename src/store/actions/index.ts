@@ -5,4 +5,9 @@ interface GetMoviesAction {
   payload: Array<object>;
 }
 
-export type Action = GetMoviesAction;
+interface LoadMoreMoviesAction {
+  type: ActionType.LOAD_MOVIES;
+  payload: Array<object>;
+}
+
+export type Action = GetMoviesAction | LoadMoreMoviesAction;

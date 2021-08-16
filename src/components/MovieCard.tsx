@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { getMovies } from '../store/action-creators';
 
-const MovieCard = () => {
+const MovieCard = (): any => {
   const posterUrl: string = 'https://image.tmdb.org/t/p/w500';
 
   const movies = useSelector((state: RootStateOrAny) => state.movies.movies);
@@ -15,7 +15,7 @@ const MovieCard = () => {
   return (
     <div>
       <h1>Movies</h1>
-      {movies.map((movie) => (
+      {movies.map((movie: any) => (
         <div key={movie.id}>
           <h1>{movie.original_title}</h1>
           <img src={posterUrl + movie.poster_path} alt="poster" />

@@ -1,12 +1,8 @@
 import React from 'react';
-import MovieCard from './components/MovieCard';
+import Main from './views/Main';
 
-const App = () => {
-  return (
-    <div>
-      <MovieCard />
-    </div>
-  );
+const App = (): any => {
+  return <Main />;
 };
 
 export default App;

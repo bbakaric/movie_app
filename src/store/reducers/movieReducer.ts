@@ -5,12 +5,17 @@ const initialState = {
   movies: [],
 };
 
-const movieReducer = (state: object = initialState, action: Action): object => {
+const movieReducer = (state: any = initialState, action: Action): object => {
   switch (action.type) {
     case ActionType.GET_MOVIES:
       return {
         ...state,
         movies: action.payload,
+      };
+    case ActionType.LOAD_MOVIES:
+      return {
+        ...state,
+        movies: [...state.movies, ...action.payload],
       };
     default:
       return state;
