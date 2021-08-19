@@ -3,6 +3,7 @@ import { Action } from '../actions/index';
 
 const initialState = {
   movies: [],
+  posterUrl: 'https://image.tmdb.org/t/p/w500',
 };
 
 const movieReducer = (state: any = initialState, action: Action): object => {

@@ -20,8 +20,32 @@ interface LoadGenresAction {
   payload: boolean;
 }
 
+interface GetRandomMovieId {
+  type: ActionType.GET_RANDOM_MOVIE_ID;
+  payload: Array<object>;
+}
+
+interface ShowRandomMoviesDetails {
+  type: ActionType.GET_RANDOM_MOVIE_DETAILS;
+  payload: Array<object>;
+}
+
+interface ShowDetails {
+  type: ActionType.SHOW_DETAILS;
+  payload: boolean;
+}
+
+interface SetGenreId {
+  type: ActionType.SET_GENRE_ID;
+  payload: string;
+}
+
 export type Action =
   | GetMoviesAction
   | LoadMoreMoviesAction
   | ShowModalAction
-  | LoadGenresAction;
+  | LoadGenresAction
+  | GetRandomMovieId
+  | ShowRandomMoviesDetails
+  | ShowDetails
+  | SetGenreId;
