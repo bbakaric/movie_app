@@ -32,3 +32,13 @@ export const showModal = (show) => async (dispatch: Dispatch) => {
     payload: show,
   });
 };
+
+export const loadGenres = (): any => async (dispatch: Dispatch) => {
+  const response = await movieApi.get(
+    `/3/genre/movie/list?api_key=${apiKey}&language=en-US`,
+  );
+  dispatch({
+    type: ActionType.LOAD_GENRES,
+    payload: response.data.genres,
+  });
+};

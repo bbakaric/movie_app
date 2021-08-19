@@ -17,7 +17,7 @@ const MovieCard = (): any => {
       <h1>Movies</h1>
       {movies.map((movie: any) => (
         <div key={movie.id}>
-          <h1>{movie.original_title}</h1>
+          <h2>{movie.original_title}</h2>
           <img src={posterUrl + movie.poster_path} alt="poster" />
           <p>Release: {parseInt(movie.release_date)}</p>
           <h3>Rating: {movie.vote_average}</h3>

@@ -15,4 +15,13 @@ interface ShowModalAction {
   payload: boolean;
 }
 
-export type Action = GetMoviesAction | LoadMoreMoviesAction | ShowModalAction;
+interface LoadGenresAction {
+  type: ActionType.LOAD_GENRES;
+  payload: boolean;
+}
+
+export type Action =
+  | GetMoviesAction
+  | LoadMoreMoviesAction
+  | ShowModalAction
+  | LoadGenresAction;

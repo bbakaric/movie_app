@@ -3,6 +3,7 @@ import { RootStateOrAny, useSelector } from 'react-redux';
 import MovieCard from '../components/MovieCard';
 import LoadBtn from '../components/LoadBtn';
 import RouletteBtn from '../components/RouletteBtn';
+import MovieRouletteModal from './MovieRouletteModal';
 
 const Main = (): any => {
   const modal = useSelector((state: RootStateOrAny) => state.modal.showModal);
@@ -12,7 +13,7 @@ const Main = (): any => {
       <MovieCard />
       <LoadBtn />
       <RouletteBtn />
-      {modal ? console.log('roulette_modal_component') : null}
+      {modal ? <MovieRouletteModal /> : null}
     </div>
   );
 };
