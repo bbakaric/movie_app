@@ -37,9 +37,7 @@ const MovieCard = (): any => {
           <button
             onClick={() => {
               dispatch(showMovieDetails(movie.id));
-              setTimeout(() => {
-                dispatch(showMovieDetailsModal(true));
-              }, 500);
+              dispatch(showMovieDetailsModal(true));
             }}
           >
             More Details...

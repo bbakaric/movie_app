@@ -10,6 +10,10 @@ const MovieDetails = () => {
     (state: RootStateOrAny) => state.movies.posterUrl,
   );
 
+  const render = movieDetails.production_companies.map((company) => (
+    <p key={company.id}>{company.name}</p>
+  ));
+
   return (
     <div>
       <p>
@@ -24,9 +28,8 @@ const MovieDetails = () => {
       <h3>Language</h3>
       <p>{movieDetails.original_language}</p>
       <h3>Production companies</h3>
-      {movieDetails.production_companies.map((company) => (
-        <p key={company.id}>{company.name}</p>
-      ))}
+      {movieDetails.production_companies.length === 0 ? <p>Unknown</p> : render}
+      <p>________________________________________________</p>
     </div>
   );
 };
