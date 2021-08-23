@@ -38,6 +38,13 @@ export const loadMovies =
     });
   };
 
+export const showMovieDetailsModal = (show) => async (dispatch: Dispatch) => {
+  dispatch({
+    type: ActionType.SHOW_MOVIE_DETAILS_MODAL,
+    payload: show,
+  });
+};
+
 export const showModal = (show) => async (dispatch: Dispatch) => {
   dispatch({
     type: ActionType.SHOW_MODAL,

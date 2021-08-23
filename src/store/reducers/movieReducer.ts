@@ -4,7 +4,8 @@ import { Action } from '../actions/index';
 const initialState = {
   movies: [],
   posterUrl: 'https://image.tmdb.org/t/p/w500',
-  randomMovieDetails: [],
+  movieDetails: {},
+  showMovieDetailsModal: false,
 };
 
 const movieReducer = (state: any = initialState, action: Action): object => {
@@ -17,7 +18,13 @@ const movieReducer = (state: any = initialState, action: Action): object => {
     case ActionType.GET_MOVIE_DETAILS:
       return {
         ...state,
-        randomMovieDetails: state.randomMovieDetails.concat([action.payload]),
+        movieDetails: action.payload,
+        // movieDetails: state.movieDetails.concat(action.payload),
+      };
+    case ActionType.SHOW_MOVIE_DETAILS_MODAL:
+      return {
+        ...state,
+        showMovieDetailsModal: action.payload,
       };
     case ActionType.LOAD_MOVIES:
       return {

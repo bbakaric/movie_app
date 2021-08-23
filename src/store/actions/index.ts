@@ -10,6 +10,11 @@ interface LoadMoreMoviesAction {
   payload: Array<object>;
 }
 
+interface ShowMovieDetailsModalAction {
+  type: ActionType.SHOW_MOVIE_DETAILS_MODAL;
+  payload: boolean;
+}
+
 interface ShowModalAction {
   type: ActionType.SHOW_MODAL;
   payload: boolean;
@@ -43,6 +48,7 @@ interface SetGenreId {
 export type Action =
   | GetMoviesAction
   | LoadMoreMoviesAction
+  | ShowMovieDetailsModalAction
   | ShowModalAction
   | LoadGenresAction
   | GetRandomMovieId

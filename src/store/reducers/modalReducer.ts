@@ -5,7 +5,6 @@ const initialState = {
   showModal: false,
   genres: [],
   movieId: 0,
-
   showDetails: false,
   genreId: '',
 };
