@@ -14,6 +14,18 @@ export const getMovies = (): any => async (dispatch: Dispatch) => {
   });
 };
 
+export const showMovieDetails =
+  (movieId): any =>
+  async (dispatch: Dispatch) => {
+    const response = await movieApi.get(
+      `/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
+    );
+    dispatch({
+      type: ActionType.GET_MOVIE_DETAILS,
+      payload: response.data,
+    });
+  };
+
 export const loadMovies =
   (page: number): any =>
   async (dispatch: Dispatch) => {
@@ -53,18 +65,6 @@ export const getRandomMovieId =
     dispatch({
       type: ActionType.GET_RANDOM_MOVIE_ID,
       payload: response.data.results[element].id,
-    });
-  };
-
-export const showRandomMovieDetails =
-  (movieId): any =>
-  async (dispatch: Dispatch) => {
-    const response = await movieApi.get(
-      `/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
-    );
-    dispatch({
-      type: ActionType.GET_RANDOM_MOVIE_DETAILS,
-      payload: response.data,
     });
   };
 

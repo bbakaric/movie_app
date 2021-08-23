@@ -25,8 +25,8 @@ interface GetRandomMovieId {
   payload: Array<object>;
 }
 
-interface ShowRandomMoviesDetails {
-  type: ActionType.GET_RANDOM_MOVIE_DETAILS;
+interface ShowMoviesDetails {
+  type: ActionType.GET_MOVIE_DETAILS;
   payload: Array<object>;
 }
 
@@ -46,6 +46,6 @@ export type Action =
   | ShowModalAction
   | LoadGenresAction
   | GetRandomMovieId
-  | ShowRandomMoviesDetails
+  | ShowMoviesDetails
   | ShowDetails
   | SetGenreId;
