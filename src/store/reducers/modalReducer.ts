@@ -5,7 +5,7 @@ const initialState = {
   showModal: false,
   genres: [],
   movieId: 0,
-  showDetails: false,
+  showRandomMovieDetails: false,
   genreId: '',
 };
 
@@ -27,10 +27,10 @@ const modalReducer = (state: any = initialState, action: Action): boolean => {
         movieId: action.payload,
       };
 
-    case ActionType.SHOW_DETAILS:
+    case ActionType.SHOW_RANDOM_MOVIE_DETAILS:
       return {
         ...state,
-        showDetails: action.payload,
+        showRandomMovieDetails: action.payload,
       };
     case ActionType.SET_GENRE_ID:
       return {

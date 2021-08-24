@@ -11,11 +11,9 @@ const MovieCard = (): any => {
   const posterUrl: string = 'https://image.tmdb.org/t/p/w500';
 
   const movies = useSelector((state: RootStateOrAny) => state.movies.movies);
-  const show = useSelector(
+
+  const showDetails = useSelector(
     (state: RootStateOrAny) => state.movies.showMovieDetailsModal,
-  );
-  const movieDetails = useSelector(
-    (state: RootStateOrAny) => state.movies.movieDetails,
   );
 
   const dispatch = useDispatch();
@@ -27,7 +25,7 @@ const MovieCard = (): any => {
   return (
     <div>
       <h1>Movies</h1>
-      <div>{show ? <MovieDetails /> : null}</div>
+      <div>{showDetails ? <MovieDetails /> : null}</div>
       {movies.map((movie: any) => (
         <div key={movie.id}>
           <h2>{movie.original_title}</h2>

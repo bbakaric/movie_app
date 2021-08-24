@@ -19,7 +19,6 @@ const movieReducer = (state: any = initialState, action: Action): object => {
       return {
         ...state,
         movieDetails: action.payload,
-        // movieDetails: state.movieDetails.concat(action.payload),
       };
     case ActionType.SHOW_MOVIE_DETAILS_MODAL:
       return {
