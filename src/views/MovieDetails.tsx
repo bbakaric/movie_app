@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
 const MovieDetails = () => {
   const movieDetails = useSelector(
     (state: RootStateOrAny) => state.movies.movieDetails,
+  );
+
+  const showModal = useSelector(
+    (state: RootStateOrAny) => state.movies.showMovieDetailsModal,
   );
 
   const posterUrl = useSelector(

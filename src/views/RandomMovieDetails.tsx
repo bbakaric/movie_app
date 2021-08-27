@@ -1,6 +1,5 @@
 import React from 'react';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
-import { setGenreId, showMovieDetailsModal } from '../store/action-creators';
 
 const RandomMovieDetails = () => {
   const movieDetails = useSelector(
@@ -32,13 +31,6 @@ const RandomMovieDetails = () => {
       <p>{movieDetails.original_language}</p>
       <h3>Production companies</h3>
       {movieDetails.production_companies.length === 0 ? <p>Unknown</p> : render}
-      <button
-        onClick={() => {
-          dispatch(showMovieDetailsModal(false));
-        }}
-      >
-        Close
-      </button>
       <p>________________________________________________</p>
     </div>
   );

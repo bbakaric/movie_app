@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import {
-  getMovies,
-  showMovieDetails,
-  showMovieDetailsModal,
-} from '../store/action-creators';
+import { getMovies, showMovieDetails } from '../store/action-creators';
 import MovieDetails from '../views/MovieDetails';
 
 const MovieCard = (): any => {
@@ -34,8 +30,7 @@ const MovieCard = (): any => {
           <h3>Rating: {movie.vote_average}</h3>
           <button
             onClick={() => {
-              dispatch(showMovieDetails(movie.id));
-              dispatch(showMovieDetailsModal(true));
+              dispatch(showMovieDetails(movie.id, true));
             }}
           >
             More Details...

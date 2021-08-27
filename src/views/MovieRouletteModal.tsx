@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import {
-  showModal,
+  showRouletteModal,
   loadGenres,
-  getRandomMovieId,
   showMovieDetails,
-  setGenreId,
-  showMovieDetailsModal,
+  getRandomMovie,
 } from '../store/action-creators';
 
 const MovieRouletteModal = () => {
@@ -14,11 +12,7 @@ const MovieRouletteModal = () => {
 
   const genres = useSelector((state: RootStateOrAny) => state.modal.genres);
 
-  const genreId = useSelector((state: RootStateOrAny) => state.modal.genreId);
-
   const movieId = useSelector((state: RootStateOrAny) => state.modal.movieId);
-
-  const page = Math.floor(Math.random() * 500) + 1;
 
   useEffect(() => {
     dispatch(loadGenres());
@@ -35,8 +29,7 @@ const MovieRouletteModal = () => {
               name="genre_name"
               value={genre.id}
               onChange={() => {
-                dispatch(setGenreId(genre.id));
-                dispatch(getRandomMovieId(page, genreId));
+                dispatch(getRandomMovie(genre.id));
               }}
             />
             <label htmlFor="">{genre.name}</label>
@@ -44,9 +37,8 @@ const MovieRouletteModal = () => {
         ))}
         <button
           onClick={() => {
-            dispatch(showModal(false));
-            dispatch(showMovieDetails(movieId));
-            dispatch(showMovieDetailsModal(true));
+            dispatch(showRouletteModal(false));
+            dispatch(showMovieDetails(movieId, true));
           }}
         >
           Roll

@@ -15,7 +15,7 @@ export const getMovies = (): any => async (dispatch: Dispatch) => {
 };
 
 export const showMovieDetails =
-  (movieId): any =>
+  (movieId, show): any =>
   async (dispatch: Dispatch) => {
     const response = await movieApi.get(
       `/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
@@ -23,6 +23,12 @@ export const showMovieDetails =
     dispatch({
       type: ActionType.GET_MOVIE_DETAILS,
       payload: response.data,
+    });
+
+    const display = show;
+    dispatch({
+      type: ActionType.SHOW_MOVIE_DETAILS_MODAL,
+      payload: display,
     });
   };
 
@@ -38,17 +44,7 @@ export const loadMovies =
     });
   };
 
-export const showMovieDetailsModal =
-  (show: boolean) => async (dispatch: Dispatch) => {
-    setTimeout(() => {
-      dispatch({
-        type: ActionType.SHOW_MOVIE_DETAILS_MODAL,
-        payload: show,
-      });
-    }, 500);
-  };
-
-export const showModal = (show) => async (dispatch: Dispatch) => {
+export const showRouletteModal = (show) => async (dispatch: Dispatch) => {
   dispatch({
     type: ActionType.SHOW_MODAL,
     payload: show,
@@ -65,42 +61,31 @@ export const loadGenres = (): any => async (dispatch: Dispatch) => {
   });
 };
 
-export const getRandomMovieId =
-  (page, genreId): any =>
-  async (dispatch: Dispatch) => {
-    const element = Math.floor(Math.random() * 20);
-    const response = await movieApi.get(
-      `3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreId}&with_watch_monetization_types=flatrate`,
-    );
-    setTimeout(() => {
-      dispatch({
-        type: ActionType.GET_RANDOM_MOVIE_ID,
-        payload: response.data.results[element].id,
-      });
-    }, 500);
-  };
+// export const showRandomMovieDetails = (show) => async (dispatch: Dispatch) => {
+//   setTimeout(() => {
+//     dispatch({
+//       type: ActionType.SHOW_RANDOM_MOVIE_DETAILS,
+//       payload: show,
+//     });
+//   }, 500);
+// };
 
-export const showDetails = (show) => async (dispatch: Dispatch) => {
-  setTimeout(() => {
-    dispatch({
-      type: ActionType.SHOW_DETAILS,
-      payload: show,
-    });
-  }, 500);
-};
+export const getRandomMovie = (genreId) => async (dispatch: Dispatch) => {
+  const genre = await genreId;
 
-export const showRandomMovieDetails = (show) => async (dispatch: Dispatch) => {
-  setTimeout(() => {
-    dispatch({
-      type: ActionType.SHOW_RANDOM_MOVIE_DETAILS,
-      payload: show,
-    });
-  }, 500);
-};
-
-export const setGenreId = (genreId) => async (dispatch: Dispatch) => {
   dispatch({
     type: ActionType.SET_GENRE_ID,
     payload: genreId,
+  });
+
+  const element = Math.floor(Math.random() * 20);
+  const page = Math.floor(Math.random() * 500) + 1;
+  const response = await movieApi.get(
+    `3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&with_watch_monetization_types=flatrate`,
+  );
+
+  dispatch({
+    type: ActionType.GET_RANDOM_MOVIE_ID,
+    payload: response.data.results[element].id,
   });
 };
