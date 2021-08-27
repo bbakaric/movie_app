@@ -5,6 +5,7 @@ const initialState = {
   movies: [],
   posterUrl: 'https://image.tmdb.org/t/p/w500',
   movieDetails: {},
+  movieImages: {},
   showMovieDetailsModal: false,
 };
 
@@ -19,6 +20,11 @@ const movieReducer = (state: any = initialState, action: Action): object => {
       return {
         ...state,
         movieDetails: action.payload,
+      };
+    case ActionType.GET_MOVIE_IMAGES:
+      return {
+        ...state,
+        movieImages: action.payload,
       };
     case ActionType.SHOW_MOVIE_DETAILS_MODAL:
       return {

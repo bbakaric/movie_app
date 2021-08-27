@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, RootStateOrAny, useSelector } from 'react-redux';
 import { showRouletteModal } from '../store/action-creators';
+import MovieDetails from '../views/MovieDetails';
 import RandomMovieDetails from '../views/RandomMovieDetails';
 
 const RouletteBtn = (): any => {
@@ -19,7 +20,7 @@ const RouletteBtn = (): any => {
       >
         Movie Roulette
       </button>
-      {show ? <RandomMovieDetails /> : null}
+      {show ? <MovieDetails /> : null}
     </div>
   );
 };

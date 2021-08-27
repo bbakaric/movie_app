@@ -25,6 +25,14 @@ export const showMovieDetails =
       payload: response.data,
     });
 
+    const responseImg = await movieApi.get(
+      `/3/movie/${movieId}/images?api_key=${apiKey}&language=en-US&include_image_language=en,null`,
+    );
+    dispatch({
+      type: ActionType.GET_MOVIE_IMAGES,
+      payload: responseImg.data,
+    });
+
     const display = show;
     dispatch({
       type: ActionType.SHOW_MOVIE_DETAILS_MODAL,
@@ -60,15 +68,6 @@ export const loadGenres = (): any => async (dispatch: Dispatch) => {
     payload: response.data.genres,
   });
 };
-
-// export const showRandomMovieDetails = (show) => async (dispatch: Dispatch) => {
-//   setTimeout(() => {
-//     dispatch({
-//       type: ActionType.SHOW_RANDOM_MOVIE_DETAILS,
-//       payload: show,
-//     });
-//   }, 500);
-// };
 
 export const getRandomMovie = (genreId) => async (dispatch: Dispatch) => {
   const genre = await genreId;

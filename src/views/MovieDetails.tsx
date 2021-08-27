@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
 const MovieDetails = () => {
@@ -6,8 +6,8 @@ const MovieDetails = () => {
     (state: RootStateOrAny) => state.movies.movieDetails,
   );
 
-  const showModal = useSelector(
-    (state: RootStateOrAny) => state.movies.showMovieDetailsModal,
+  const movieImages = useSelector(
+    (state: RootStateOrAny) => state.movies.movieImages,
   );
 
   const posterUrl = useSelector(
@@ -23,7 +23,18 @@ const MovieDetails = () => {
       <p>
         <b>{movieDetails.original_title}</b>
       </p>
-      <img src={posterUrl + movieDetails.backdrop_path} alt="backdroph" />
+      {movieImages.backdrops.length !== 0 && (
+        <img src={posterUrl + movieDetails.backdrop_path} alt="backdroph" />
+      )}
+      {movieImages.backdrops.length === 0 &&
+        movieImages.posters.length !== 0 && (
+          <img
+            src={posterUrl + movieImages.posters[0].file_path}
+            alt="poster"
+          />
+        )}
+      {movieImages.backdrops.length === 0 &&
+        movieImages.posters.length === 0 && <p>Image currently unavailable!</p>}
       <p>{movieDetails.overview}</p>
       <h3>Rating</h3>
       <p>{movieDetails.vote_average}</p>

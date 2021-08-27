@@ -35,6 +35,11 @@ interface ShowMovieDetails {
   payload: Array<object>;
 }
 
+interface ShowMovieImages {
+  type: ActionType.GET_MOVIE_IMAGES;
+  payload: Array<object>;
+}
+
 interface ShowRandomMovieDetails {
   type: ActionType.SHOW_DETAILS;
   payload: boolean;
@@ -54,4 +59,5 @@ export type Action =
   | GetRandomMovieId
   | ShowMovieDetails
   | ShowRandomMovieDetails
-  | SetGenreId;
+  | SetGenreId
+  | ShowMovieImages;
