@@ -60,6 +60,11 @@ interface ClearMovieDetails {
   payload: string;
 }
 
+interface GetRequestToken {
+  type: ActionType.GET_REQUEST_TOKEN;
+  payload: string;
+}
+
 export type Action =
   | GetMoviesAction
   | LoadMoreMoviesAction
@@ -72,4 +77,5 @@ export type Action =
   | SetGenreId
   | ShowMovieImages
   | CloseModalAction
-  | ClearMovieDetails;
+  | ClearMovieDetails
+  | GetRequestToken;

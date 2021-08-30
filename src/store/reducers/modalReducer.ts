@@ -9,7 +9,7 @@ const initialState = {
   genreId: '',
 };
 
-const modalReducer = (state: any = initialState, action: Action): boolean => {
+const modalReducer = (state: any = initialState, action: Action): object => {
   switch (action.type) {
     case ActionType.SHOW_MODAL:
       return {

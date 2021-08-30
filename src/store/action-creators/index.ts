@@ -78,7 +78,7 @@ export const loadGenres = (): any => async (dispatch: Dispatch) => {
 
 export const getRandomMovie =
   (genreId: number) => async (dispatch: Dispatch) => {
-    const genre = await genreId;
+    const genre = genreId;
 
     dispatch({
       type: ActionType.SET_GENRE_ID,
@@ -101,5 +101,15 @@ export const clearMovieDetails = (): object => async (dispatch: Dispatch) => {
   dispatch({
     type: ActionType.CLEAR_MOVIE_DETAILS,
     payload: {},
+  });
+};
+
+export const getRequestToken = (): object => async (dispatch: Dispatch) => {
+  const response = await movieApi.get(
+    `/3/authentication/token/new?api_key=${apiKey}`,
+  );
+  dispatch({
+    type: ActionType.GET_REQUEST_TOKEN,
+    payload: response.data,
   });
 };
