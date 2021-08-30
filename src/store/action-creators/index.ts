@@ -15,7 +15,7 @@ export const getMovies = (): any => async (dispatch: Dispatch) => {
 };
 
 export const showMovieDetails =
-  (movieId, show): any =>
+  (movieId: number, show: boolean): any =>
   async (dispatch: Dispatch) => {
     const response = await movieApi.get(
       `/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
@@ -52,10 +52,17 @@ export const loadMovies =
     });
   };
 
-export const showRouletteModal = (show) => async (dispatch: Dispatch) => {
+export const showModal = (show: boolean) => async (dispatch: Dispatch) => {
   dispatch({
     type: ActionType.SHOW_MODAL,
     payload: show,
+  });
+};
+
+export const closeModal = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: ActionType.CLOSE_MODAL,
+    payload: false,
   });
 };
 
@@ -69,22 +76,30 @@ export const loadGenres = (): any => async (dispatch: Dispatch) => {
   });
 };
 
-export const getRandomMovie = (genreId) => async (dispatch: Dispatch) => {
-  const genre = await genreId;
+export const getRandomMovie =
+  (genreId: number) => async (dispatch: Dispatch) => {
+    const genre = await genreId;
 
+    dispatch({
+      type: ActionType.SET_GENRE_ID,
+      payload: genreId,
+    });
+
+    const element = Math.floor(Math.random() * 20);
+    const page = Math.floor(Math.random() * 500) + 1;
+    const response = await movieApi.get(
+      `3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&with_watch_monetization_types=flatrate`,
+    );
+
+    dispatch({
+      type: ActionType.GET_RANDOM_MOVIE_ID,
+      payload: response.data.results[element].id,
+    });
+  };
+
+export const clearMovieDetails = (): object => async (dispatch: Dispatch) => {
   dispatch({
-    type: ActionType.SET_GENRE_ID,
-    payload: genreId,
-  });
-
-  const element = Math.floor(Math.random() * 20);
-  const page = Math.floor(Math.random() * 500) + 1;
-  const response = await movieApi.get(
-    `3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&with_watch_monetization_types=flatrate`,
-  );
-
-  dispatch({
-    type: ActionType.GET_RANDOM_MOVIE_ID,
-    payload: response.data.results[element].id,
+    type: ActionType.CLEAR_MOVIE_DETAILS,
+    payload: {},
   });
 };

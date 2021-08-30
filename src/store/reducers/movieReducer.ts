@@ -31,12 +31,21 @@ const movieReducer = (state: any = initialState, action: Action): object => {
         ...state,
         showMovieDetailsModal: action.payload,
       };
+    case ActionType.CLOSE_MODAL:
+      return {
+        ...state,
+        showMovieDetailsModal: action.payload,
+      };
     case ActionType.LOAD_MOVIES:
       return {
         ...state,
         movies: [...state.movies, ...action.payload],
       };
-
+    case ActionType.CLEAR_MOVIE_DETAILS:
+      return {
+        ...state,
+        movieDetails: action.payload,
+      };
     default:
       return state;
   }

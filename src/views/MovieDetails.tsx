@@ -1,5 +1,6 @@
 import React from 'react';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
+import { clearMovieDetails, closeModal } from '../store/action-creators';
 
 const MovieDetails = () => {
   const movieDetails = useSelector(
@@ -13,6 +14,8 @@ const MovieDetails = () => {
   const posterUrl = useSelector(
     (state: RootStateOrAny) => state.movies.posterUrl,
   );
+
+  const dispatch = useDispatch();
 
   const render = movieDetails.production_companies.map((company) => (
     <p key={company.id}>{company.name}</p>
@@ -44,6 +47,14 @@ const MovieDetails = () => {
       <p>{movieDetails.original_language}</p>
       <h3>Production companies</h3>
       {movieDetails.production_companies.length === 0 ? <p>Unknown</p> : render}
+      <button
+        onClick={() => {
+          dispatch(closeModal());
+          dispatch(clearMovieDetails());
+        }}
+      >
+        Close
+      </button>
       <p>________________________________________________</p>
     </div>
   );

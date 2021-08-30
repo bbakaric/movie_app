@@ -20,6 +20,11 @@ interface ShowModalAction {
   payload: boolean;
 }
 
+interface CloseModalAction {
+  type: ActionType.CLOSE_MODAL;
+  payload: boolean;
+}
+
 interface LoadGenresAction {
   type: ActionType.LOAD_GENRES;
   payload: boolean;
@@ -50,6 +55,11 @@ interface SetGenreId {
   payload: string;
 }
 
+interface ClearMovieDetails {
+  type: ActionType.CLEAR_MOVIE_DETAILS;
+  payload: string;
+}
+
 export type Action =
   | GetMoviesAction
   | LoadMoreMoviesAction
@@ -60,4 +70,6 @@ export type Action =
   | ShowMovieDetails
   | ShowRandomMovieDetails
   | SetGenreId
-  | ShowMovieImages;
+  | ShowMovieImages
+  | CloseModalAction
+  | ClearMovieDetails;

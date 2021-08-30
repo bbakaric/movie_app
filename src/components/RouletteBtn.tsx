@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, RootStateOrAny, useSelector } from 'react-redux';
-import { showRouletteModal } from '../store/action-creators';
+import { showModal } from '../store/action-creators';
 import MovieDetails from '../views/MovieDetails';
-import RandomMovieDetails from '../views/RandomMovieDetails';
 
 const RouletteBtn = (): any => {
   const show = useSelector(
@@ -15,7 +14,7 @@ const RouletteBtn = (): any => {
     <div>
       <button
         onClick={() => {
-          dispatch(showRouletteModal(true));
+          dispatch(showModal(true));
         }}
       >
         Movie Roulette

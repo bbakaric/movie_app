@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import {
-  showRouletteModal,
+  showModal,
   loadGenres,
   showMovieDetails,
   getRandomMovie,
@@ -37,11 +37,18 @@ const MovieRouletteModal = () => {
         ))}
         <button
           onClick={() => {
-            dispatch(showRouletteModal(false));
+            dispatch(showModal(false));
             dispatch(showMovieDetails(movieId, true));
           }}
         >
           Roll
+        </button>
+        <button
+          onClick={() => {
+            dispatch(showModal(false));
+          }}
+        >
+          Close
         </button>
       </div>
     </div>
