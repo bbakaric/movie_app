@@ -1,3 +1,4 @@
+import { UserInfo } from 'os';
 import { ActionType } from '../action-types';
 
 interface GetMoviesAction {
@@ -57,12 +58,32 @@ interface SetGenreId {
 
 interface ClearMovieDetails {
   type: ActionType.CLEAR_MOVIE_DETAILS;
-  payload: string;
+  payload: object;
 }
 
-interface GetRequestToken {
-  type: ActionType.GET_REQUEST_TOKEN;
-  payload: string;
+interface ClearMovieImages {
+  type: ActionType.GET_MOVIE_IMAGES;
+  payload: object;
+}
+
+interface GetSessionId {
+  type: ActionType.GET_SESSION_ID;
+  payload: object;
+}
+
+interface SetUserInfo {
+  type: ActionType.SET_USER_INFO;
+  payload: object;
+}
+
+interface ClearUserInfo {
+  type: ActionType.CLEAR_USER_INFO;
+  payload: object;
+}
+
+interface DeleteSession {
+  type: ActionType.DELETE_SESSION;
+  payload: object;
 }
 
 export type Action =
@@ -78,4 +99,8 @@ export type Action =
   | ShowMovieImages
   | CloseModalAction
   | ClearMovieDetails
-  | GetRequestToken;
+  | ClearMovieImages
+  | GetSessionId
+  | SetUserInfo
+  | ClearUserInfo
+  | DeleteSession;

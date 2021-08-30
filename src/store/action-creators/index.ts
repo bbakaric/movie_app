@@ -102,14 +102,42 @@ export const clearMovieDetails = (): object => async (dispatch: Dispatch) => {
     type: ActionType.CLEAR_MOVIE_DETAILS,
     payload: {},
   });
+
+  dispatch({
+    type: ActionType.GET_MOVIE_IMAGES,
+    payload: {},
+  });
 };
 
-export const getRequestToken = (): object => async (dispatch: Dispatch) => {
+export const getSessionId = () => async (dispatch: Dispatch) => {
   const response = await movieApi.get(
-    `/3/authentication/token/new?api_key=${apiKey}`,
+    `/3/authentication/guest_session/new?api_key=${apiKey}`,
   );
   dispatch({
-    type: ActionType.GET_REQUEST_TOKEN,
+    type: ActionType.GET_SESSION_ID,
     payload: response.data,
   });
 };
+
+export const setUserInfo =
+  (isLoggedIn: boolean, userName: string, password: string): object =>
+  async (dispatch: Dispatch) => {
+    dispatch({
+      type: ActionType.SET_USER_INFO,
+      payload: { isLoggedIn, userName, password },
+    });
+  };
+
+export const clearUserInfo =
+  (isLoggedIn: boolean, userName: string, password: string): object =>
+  async (dispatch: Dispatch) => {
+    dispatch({
+      type: ActionType.DELETE_SESSION,
+      payload: {},
+    });
+
+    dispatch({
+      type: ActionType.CLEAR_USER_INFO,
+      payload: { isLoggedIn, userName, password },
+    });
+  };

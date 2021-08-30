@@ -46,6 +46,11 @@ const movieReducer = (state: any = initialState, action: Action): object => {
         ...state,
         movieDetails: action.payload,
       };
+    case ActionType.GET_MOVIE_IMAGES:
+      return {
+        ...state,
+        movieImages: action.payload,
+      };
     default:
       return state;
   }
