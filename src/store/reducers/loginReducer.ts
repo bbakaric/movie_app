@@ -5,8 +5,7 @@ const initialState = {
   sessionInfo: {},
   userInfo: {
     isLoggedIn: false,
-    userName: '',
-    password: '',
+    sessionId: '',
   },
 };
 

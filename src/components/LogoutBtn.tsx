@@ -7,9 +7,8 @@ const LogoutBtn = () => {
 
   return (
     <div>
-      <button onClick={() => dispatch(clearUserInfo(false, '', ''))}>
-        Logout
-      </button>
+      <h4>You can now proceed to rate movies or you can logout !</h4>
+      <button onClick={() => dispatch(clearUserInfo(false, ''))}>Logout</button>
     </div>
   );
 };

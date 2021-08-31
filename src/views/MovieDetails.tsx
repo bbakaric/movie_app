@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
 import { clearMovieDetails, closeModal } from '../store/action-creators';
 
 const MovieDetails = () => {
+  const [ratingValue, setRatingValue] = useState('');
+
+  const handleRatingValue = (e) => {
+    setRatingValue(e.target.value);
+  };
+
   const movieDetails = useSelector(
     (state: RootStateOrAny) => state.movies.movieDetails,
   );
@@ -39,6 +45,16 @@ const MovieDetails = () => {
       {movieImages.backdrops.length === 0 &&
         movieImages.posters.length === 0 && <p>Image currently unavailable!</p>}
       <p>{movieDetails.overview}</p>
+      <p>Rate movie</p>
+      <form action="">
+        <select name="rating" id="rate">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </form>
       <h3>Rating</h3>
       <p>{movieDetails.vote_average}</p>
       <h3>Popularity</h3>

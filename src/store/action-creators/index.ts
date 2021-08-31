@@ -120,16 +120,16 @@ export const getSessionId = () => async (dispatch: Dispatch) => {
 };
 
 export const setUserInfo =
-  (isLoggedIn: boolean, userName: string, password: string): object =>
+  (isLoggedIn: boolean, sessionId: string): object =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: ActionType.SET_USER_INFO,
-      payload: { isLoggedIn, userName, password },
+      payload: { isLoggedIn, sessionId },
     });
   };
 
 export const clearUserInfo =
-  (isLoggedIn: boolean, userName: string, password: string): object =>
+  (isLoggedIn: boolean, sessionId: string): object =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: ActionType.DELETE_SESSION,
@@ -138,6 +138,6 @@ export const clearUserInfo =
 
     dispatch({
       type: ActionType.CLEAR_USER_INFO,
-      payload: { isLoggedIn, userName, password },
+      payload: { isLoggedIn, sessionId },
     });
   };
