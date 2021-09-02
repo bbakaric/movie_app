@@ -142,11 +142,25 @@ export const clearUserInfo =
     });
   };
 
-export const rateMovie =
-  (ratingValue: string): object =>
+export const setRatingValue =
+  (ratingValue: number): object =>
   async (dispatch: Dispatch) => {
     dispatch({
-      type: ActionType.RATE_MOVIE,
+      type: ActionType.SET_RATING_VALUE,
       payload: ratingValue,
+    });
+  };
+
+export const rateMovie =
+  (movieId, ratingValue: number, sessionId) => async (dispatch: Dispatch) => {
+    const response = await movieApi.post(
+      `/3/movie/${movieId}/rating?api_key=${apiKey}&guest_session_id=${sessionId}`,
+      {
+        value: ratingValue,
+      },
+    );
+    dispatch({
+      type: ActionType.RATE_MOVIE,
+      payload: response.data,
     });
   };

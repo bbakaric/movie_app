@@ -5,15 +5,11 @@ import {
   clearMovieDetails,
   closeModal,
   rateMovie,
+  setRatingValue,
 } from '../store/action-creators';
 
 const MovieDetails = () => {
-  const [ratingValue, setRatingValue] = useState(0);
-
-  const onChange = (ratingValue) => {
-    console.log(`React Stars Rating value is ${ratingValue}`);
-    dispatch(rateMovie(ratingValue));
-  };
+  const [ratingValue, setRatingVal] = useState(0);
 
   const movieDetails = useSelector(
     (state: RootStateOrAny) => state.movies.movieDetails,
@@ -27,7 +23,27 @@ const MovieDetails = () => {
     (state: RootStateOrAny) => state.movies.posterUrl,
   );
 
+  const sessionId = useSelector(
+    (state: RootStateOrAny) => state.login.userInfo.sessionId,
+  );
+
+  const rating = useSelector(
+    (state: RootStateOrAny) => state.movies.movieRating,
+  );
+
   const dispatch = useDispatch();
+
+  const onChange = (ratingValue: number) => {
+    console.log(
+      `Rating for movie ${movieDetails.id} is ${ratingValue} and sessionId is ${sessionId}`,
+    );
+    dispatch(setRatingValue(ratingValue));
+  };
+
+  if (rating !== 0) {
+    dispatch(rateMovie(movieDetails.id, rating, sessionId));
+    console.log('Rating updated');
+  }
 
   const render = movieDetails.production_companies.map((company) => (
     <p key={company.id}>{company.name}</p>
@@ -54,11 +70,8 @@ const MovieDetails = () => {
       <ReactStarsRating
         onChange={onChange}
         value={ratingValue}
-        count={5}
-        size={25}
-        isHalf={true}
+        count={10}
         starGap={5}
-        primaryColor={'gold'}
       />
       <h3>Rating</h3>
       <p>{movieDetails.vote_average}</p>
