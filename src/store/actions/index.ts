@@ -80,6 +80,10 @@ interface ClearUserInfo {
   type: ActionType.CLEAR_USER_INFO;
   payload: object;
 }
+interface RateMovie {
+  type: ActionType.RATE_MOVIE;
+  payload: number;
+}
 
 interface DeleteSession {
   type: ActionType.DELETE_SESSION;
@@ -103,4 +107,5 @@ export type Action =
   | GetSessionId
   | SetUserInfo
   | ClearUserInfo
+  | RateMovie
   | DeleteSession;

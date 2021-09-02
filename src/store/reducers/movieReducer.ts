@@ -7,6 +7,7 @@ const initialState = {
   movieDetails: {},
   movieImages: {},
   showMovieDetailsModal: false,
+  movieRating: 0,
 };
 
 const movieReducer = (state: any = initialState, action: Action): object => {
@@ -50,6 +51,11 @@ const movieReducer = (state: any = initialState, action: Action): object => {
       return {
         ...state,
         movieImages: action.payload,
+      };
+    case ActionType.RATE_MOVIE:
+      return {
+        ...state,
+        movieRating: action.payload,
       };
     default:
       return state;

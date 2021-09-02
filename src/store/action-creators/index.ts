@@ -141,3 +141,12 @@ export const clearUserInfo =
       payload: { isLoggedIn, sessionId },
     });
   };
+
+export const rateMovie =
+  (ratingValue: string): object =>
+  async (dispatch: Dispatch) => {
+    dispatch({
+      type: ActionType.RATE_MOVIE,
+      payload: ratingValue,
+    });
+  };

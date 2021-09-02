@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import ReactStarsRating from 'react-awesome-stars-rating';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
-import { clearMovieDetails, closeModal } from '../store/action-creators';
+import {
+  clearMovieDetails,
+  closeModal,
+  rateMovie,
+} from '../store/action-creators';
 
 const MovieDetails = () => {
-  const [ratingValue, setRatingValue] = useState('');
+  const [ratingValue, setRatingValue] = useState(0);
 
-  const handleRatingValue = (e) => {
-    setRatingValue(e.target.value);
+  const onChange = (ratingValue) => {
+    console.log(`React Stars Rating value is ${ratingValue}`);
+    dispatch(rateMovie(ratingValue));
   };
 
   const movieDetails = useSelector(
@@ -45,16 +51,15 @@ const MovieDetails = () => {
       {movieImages.backdrops.length === 0 &&
         movieImages.posters.length === 0 && <p>Image currently unavailable!</p>}
       <p>{movieDetails.overview}</p>
-      <p>Rate movie</p>
-      <form action="">
-        <select name="rating" id="rate">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </form>
+      <ReactStarsRating
+        onChange={onChange}
+        value={ratingValue}
+        count={5}
+        size={25}
+        isHalf={true}
+        starGap={5}
+        primaryColor={'gold'}
+      />
       <h3>Rating</h3>
       <p>{movieDetails.vote_average}</p>
       <h3>Popularity</h3>
