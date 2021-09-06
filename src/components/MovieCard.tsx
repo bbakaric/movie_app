@@ -8,6 +8,10 @@ const MovieCard = (): any => {
 
   const movies = useSelector((state: RootStateOrAny) => state.movies.movies);
 
+  const sessionId = useSelector(
+    (state: RootStateOrAny) => state.login.userInfo.sessionId,
+  );
+
   const showDetails = useSelector(
     (state: RootStateOrAny) => state.movies.showMovieDetailsModal,
   );
@@ -30,7 +34,7 @@ const MovieCard = (): any => {
           <h3>Rating: {movie.vote_average}</h3>
           <button
             onClick={() => {
-              dispatch(showMovieDetails(movie.id, true));
+              dispatch(showMovieDetails(movie.id, true, sessionId));
             }}
           >
             More Details...

@@ -91,6 +91,11 @@ interface RateMovie {
   payload: number;
 }
 
+interface GetRatedMovies {
+  type: ActionType.GET_RATED_MOVIES;
+  payload: object;
+}
+
 interface DeleteSession {
   type: ActionType.DELETE_SESSION;
   payload: object;
@@ -115,4 +120,5 @@ export type Action =
   | ClearUserInfo
   | SetRatingValue
   | RateMovie
+  | GetRatedMovies
   | DeleteSession;

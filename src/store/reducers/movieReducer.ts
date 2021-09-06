@@ -9,6 +9,7 @@ const initialState = {
   showMovieDetailsModal: false,
   movieRating: 0,
   ratingPostInfo: '',
+  ratedMovies: [],
 };
 
 const movieReducer = (state: any = initialState, action: Action): object => {
@@ -62,6 +63,11 @@ const movieReducer = (state: any = initialState, action: Action): object => {
       return {
         ...state,
         ratingPostInfo: action.payload,
+      };
+    case ActionType.GET_RATED_MOVIES:
+      return {
+        ...state,
+        ratedMovies: action.payload,
       };
     default:
       return state;

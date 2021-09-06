@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
 import {
   clearMovieDetails,
   closeModal,
+  getRatedMovies,
   rateMovie,
   setRatingValue,
 } from '../store/action-creators';
@@ -34,23 +35,30 @@ const MovieDetails = () => {
   const dispatch = useDispatch();
 
   const onChange = (ratingValue: number) => {
-    console.log(
-      `Rating for movie ${movieDetails.id} is ${ratingValue} and sessionId is ${sessionId}`,
-    );
     dispatch(setRatingValue(ratingValue));
   };
 
   if (rating !== 0) {
     dispatch(rateMovie(movieDetails.id, rating, sessionId));
-    console.log('Rating updated');
   }
 
   const render = movieDetails.production_companies.map((company) => (
     <p key={company.id}>{company.name}</p>
   ));
 
+  const ratedMovies = useSelector(
+    (state: RootStateOrAny) => state.movies.ratedMovies,
+  );
+
+  const ratedMoviesId = ratedMovies.map((movie) => movie.id);
+
+  if (ratedMoviesId.includes(movieDetails.id)) {
+    console.log(true);
+  }
+
   return (
     <div>
+      <p>{ratedMovies.id}</p>
       <p>
         <b>{movieDetails.original_title}</b>
       </p>
