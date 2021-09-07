@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactStarsRating from 'react-awesome-stars-rating';
+import ReactStars from 'react-rating-stars-component';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
 import {
   clearMovieDetails,
@@ -32,10 +32,14 @@ const MovieDetails = () => {
     (state: RootStateOrAny) => state.movies.movieRating,
   );
 
+  const ratedMovies = useSelector(
+    (state: RootStateOrAny) => state.movies.ratedMovies,
+  );
+
   const dispatch = useDispatch();
 
-  const onChange = (ratingValue: number) => {
-    dispatch(setRatingValue(ratingValue));
+  const ratingChange = (rating: number) => {
+    dispatch(setRatingValue(rating));
   };
 
   if (rating !== 0) {
@@ -46,19 +50,16 @@ const MovieDetails = () => {
     <p key={company.id}>{company.name}</p>
   ));
 
-  const ratedMovies = useSelector(
-    (state: RootStateOrAny) => state.movies.ratedMovies,
-  );
+  // const ratedMoviesId = ratedMovies.map((movie) => movie.id);
 
-  const ratedMoviesId = ratedMovies.map((movie) => movie.id);
+  // const myRating = null;
 
-  if (ratedMoviesId.includes(movieDetails.id)) {
-    console.log(true);
-  }
+  // if (ratedMoviesId.includes(movieDetails.id)) {
+  //   myRating =
+  // }
 
   return (
     <div>
-      <p>{ratedMovies.id}</p>
       <p>
         <b>{movieDetails.original_title}</b>
       </p>
@@ -75,12 +76,7 @@ const MovieDetails = () => {
       {movieImages.backdrops.length === 0 &&
         movieImages.posters.length === 0 && <p>Image currently unavailable!</p>}
       <p>{movieDetails.overview}</p>
-      <ReactStarsRating
-        onChange={onChange}
-        value={ratingValue}
-        count={10}
-        starGap={5}
-      />
+      <ReactStars size={35} count={10} isHalf={true} onChange={ratingChange} />
       <h3>Rating</h3>
       <p>{movieDetails.vote_average}</p>
       <h3>Popularity</h3>
