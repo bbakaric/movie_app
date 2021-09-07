@@ -15,7 +15,7 @@ export const getMovies = (): any => async (dispatch: Dispatch) => {
 };
 
 export const showMovieDetails =
-  (movieId: number, show: boolean, sessionId): any =>
+  (movieId: number, show: boolean, sessionId: null): any =>
   async (dispatch: Dispatch) => {
     const response = await movieApi.get(
       `/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
@@ -33,13 +33,15 @@ export const showMovieDetails =
       payload: responseImg.data,
     });
 
-    const response_rated = await movieApi.get(
-      `/3/guest_session/${sessionId}/rated/movies?api_key=${apiKey}&language=en-US&sort_by=created_at.asc`,
-    );
-    dispatch({
-      type: ActionType.GET_RATED_MOVIES,
-      payload: response_rated.data.results,
-    });
+    if (sessionId !== null) {
+      const response_rated = await movieApi.get(
+        `/3/guest_session/${sessionId}/rated/movies?api_key=${apiKey}&language=en-US&sort_by=created_at.asc`,
+      );
+      dispatch({
+        type: ActionType.GET_RATED_MOVIES,
+        payload: response_rated.data.results,
+      });
+    }
 
     const display = show;
     dispatch({
@@ -172,15 +174,3 @@ export const rateMovie =
       payload: response.data,
     });
   };
-
-// export const getRatedMovies =
-//   (sessionId): any =>
-//   async (dispatch: Dispatch) => {
-//     const response = await movieApi.get(
-//       `/3/guest_session/${sessionId}/rated/movies?api_key=${apiKey}&language=en-US&sort_by=created_at.asc`,
-//     );
-//     dispatch({
-//       type: ActionType.GET_RATED_MOVIES,
-//       payload: response.data.results,
-//     });
-//   };

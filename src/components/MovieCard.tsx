@@ -16,6 +16,10 @@ const MovieCard = (): any => {
     (state: RootStateOrAny) => state.movies.showMovieDetailsModal,
   );
 
+  const isLoggedIn = useSelector(
+    (state: RootStateOrAny) => state.login.userInfo.isLoggedIn,
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,13 +36,23 @@ const MovieCard = (): any => {
           <img src={posterUrl + movie.poster_path} alt="poster" />
           <p>Release: {parseInt(movie.release_date)}</p>
           <h3>Rating: {movie.vote_average}</h3>
-          <button
-            onClick={() => {
-              dispatch(showMovieDetails(movie.id, true, sessionId));
-            }}
-          >
-            More Details...
-          </button>
+          {isLoggedIn ? (
+            <button
+              onClick={() => {
+                dispatch(showMovieDetails(movie.id, true, sessionId));
+              }}
+            >
+              More Details...
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                dispatch(showMovieDetails(movie.id, true, null));
+              }}
+            >
+              More Details...
+            </button>
+          )}
         </div>
       ))}
     </div>
