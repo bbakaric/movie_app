@@ -3,7 +3,7 @@ import { useDispatch, RootStateOrAny, useSelector } from 'react-redux';
 import { showModal } from '../store/action-creators';
 import MovieDetails from '../views/MovieDetails';
 
-const RouletteBtn = (): any => {
+const RouletteBtn = (): JSX.Element => {
   const show = useSelector(
     (state: RootStateOrAny) => state.modal.showRandomMovieDetails,
   );

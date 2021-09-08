@@ -7,7 +7,12 @@ import {
   getRandomMovie,
 } from '../store/action-creators';
 
-const MovieRouletteModal = () => {
+interface State {
+  id: number;
+  name: string;
+}
+
+const MovieRouletteModal = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const genres = useSelector((state: RootStateOrAny) => state.modal.genres);
@@ -22,7 +27,7 @@ const MovieRouletteModal = () => {
     <div>
       <div>
         <h2>Movie Roulette</h2>
-        {genres.map((genre) => (
+        {genres.map((genre: State) => (
           <div key={genre.id}>
             <input
               type="radio"
@@ -38,7 +43,7 @@ const MovieRouletteModal = () => {
         <button
           onClick={() => {
             dispatch(showModal(false));
-            dispatch(showMovieDetails(movieId, true));
+            dispatch(showMovieDetails(movieId, true, null));
           }}
         >
           Roll

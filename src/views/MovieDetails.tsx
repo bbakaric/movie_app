@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactStars from 'react-rating-stars-component';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,10 +8,23 @@ import {
   setRatingValue,
 } from '../store/action-creators';
 
-const MovieDetails = () => {
-  const [ratingValue, setRatingVal] = useState(0);
+interface State {
+  id: number;
+  original_title: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+  name: string;
+  rating: number;
+  backdrop_path: string;
+  overview: string;
+  popularity: number;
+  original_language: string;
+  production_companies: { id: number; name: string }[];
+}
 
-  const movieDetails = useSelector(
+const MovieDetails = (): JSX.Element => {
+  const movieDetails: State = useSelector(
     (state: RootStateOrAny) => state.movies.movieDetails,
   );
 
@@ -41,7 +54,7 @@ const MovieDetails = () => {
 
   const dispatch = useDispatch();
 
-  const ratingChange = (rating: number) => {
+  const ratingChange = (rating: number): void => {
     dispatch(setRatingValue(rating));
   };
 
@@ -53,15 +66,18 @@ const MovieDetails = () => {
     <p key={company.id}>{company.name}</p>
   ));
 
-  const ratedMoviesId = ratedMovies.map((movie) => movie.id);
+  const ratedMoviesId = ratedMovies.map((movie: State) => movie.id);
 
-  let ratedId = null;
+  let ratedId: null | number = null;
 
   if (ratedMoviesId.includes(movieDetails.id)) {
     ratedId = movieDetails.id;
   }
 
-  const ratedMovieDetails = (id, movie) => {
+  const ratedMovieDetails = (
+    id: null | number,
+    movie: Array<{ id: number; rating: number }>,
+  ) => {
     for (let i = 0; i < movie.length; i++) {
       if (movie[i].id === id) {
         return movie[i];
@@ -71,99 +87,115 @@ const MovieDetails = () => {
 
   const ratedMovie = ratedMovieDetails(ratedId, ratedMovies);
 
-  const loggedOutInterface = (
-    <div>
-      <p>
-        <b>{movieDetails.original_title}</b>
-      </p>
-      {movieImages.backdrops.length !== 0 && (
-        <img src={posterUrl + movieDetails.backdrop_path} alt="backdroph" />
-      )}
-      {movieImages.backdrops.length === 0 &&
-        movieImages.posters.length !== 0 && (
-          <img
-            src={posterUrl + movieImages.posters[0].file_path}
-            alt="poster"
-          />
+  const loggedOutInterface = (): JSX.Element => {
+    return (
+      <div>
+        <p>
+          <b>{movieDetails.original_title}</b>
+        </p>
+        {movieImages.backdrops.length !== 0 && (
+          <img src={posterUrl + movieDetails.backdrop_path} alt="backdroph" />
         )}
-      {movieImages.backdrops.length === 0 &&
-        movieImages.posters.length === 0 && <p>Image currently unavailable!</p>}
-      <p>{movieDetails.overview}</p>
-      <h3>Rating</h3>
-      <p>{movieDetails.vote_average}</p>
-      <h3>Popularity</h3>
-      <p>{movieDetails.popularity}</p>
-      <h3>Language</h3>
-      <p>{movieDetails.original_language}</p>
-      <h3>Production companies</h3>
-      {movieDetails.production_companies.length === 0 ? <p>Unknown</p> : render}
-      <button
-        onClick={() => {
-          dispatch(closeModal());
-          dispatch(clearMovieDetails());
-        }}
-      >
-        Close
-      </button>
-      <p>________________________________________________</p>
-    </div>
-  );
-
-  const loggedInInterface = (
-    <div>
-      <p>
-        <b>{movieDetails.original_title}</b>
-      </p>
-      {movieImages.backdrops.length !== 0 && (
-        <img src={posterUrl + movieDetails.backdrop_path} alt="backdroph" />
-      )}
-      {movieImages.backdrops.length === 0 &&
-        movieImages.posters.length !== 0 && (
-          <img
-            src={posterUrl + movieImages.posters[0].file_path}
-            alt="poster"
-          />
+        {movieImages.backdrops.length === 0 &&
+          movieImages.posters.length !== 0 && (
+            <img
+              src={posterUrl + movieImages.posters[0].file_path}
+              alt="poster"
+            />
+          )}
+        {movieImages.backdrops.length === 0 &&
+          movieImages.posters.length === 0 && (
+            <p>Image currently unavailable!</p>
+          )}
+        <p>{movieDetails.overview}</p>
+        <h3>Rating</h3>
+        <p>{movieDetails.vote_average}</p>
+        <h3>Popularity</h3>
+        <p>{movieDetails.popularity}</p>
+        <h3>Language</h3>
+        <p>{movieDetails.original_language}</p>
+        <h3>Production companies</h3>
+        {movieDetails.production_companies.length === 0 ? (
+          <p>Unknown</p>
+        ) : (
+          render
         )}
-      {movieImages.backdrops.length === 0 &&
-        movieImages.posters.length === 0 && <p>Image currently unavailable!</p>}
-      <p>{movieDetails.overview}</p>
-      {ratedMovie ? (
-        <div>
-          <h3>Your Rating:</h3>
-          <p>{ratedMovie.rating}</p>
-        </div>
-      ) : (
-        <div>
-          <h3>Rate Movie:</h3>
-          <ReactStars
-            size={35}
-            count={10}
-            isHalf={true}
-            onChange={ratingChange}
-          />
-        </div>
-      )}
-      <h3>Rating</h3>
-      <p>{movieDetails.vote_average}</p>
-      <h3>Popularity</h3>
-      <p>{movieDetails.popularity}</p>
-      <h3>Language</h3>
-      <p>{movieDetails.original_language}</p>
-      <h3>Production companies</h3>
-      {movieDetails.production_companies.length === 0 ? <p>Unknown</p> : render}
-      <button
-        onClick={() => {
-          dispatch(closeModal());
-          dispatch(clearMovieDetails());
-        }}
-      >
-        Close
-      </button>
-      <p>________________________________________________</p>
-    </div>
-  );
+        <button
+          onClick={() => {
+            dispatch(closeModal());
+            dispatch(clearMovieDetails());
+          }}
+        >
+          Close
+        </button>
+        <p>________________________________________________</p>
+      </div>
+    );
+  };
 
-  return <div>{isLoggedIn ? loggedInInterface : loggedOutInterface}</div>;
+  const loggedInInterface = (): JSX.Element => {
+    return (
+      <div>
+        <p>
+          <b>{movieDetails.original_title}</b>
+        </p>
+        {movieImages.backdrops.length !== 0 && (
+          <img src={posterUrl + movieDetails.backdrop_path} alt="backdroph" />
+        )}
+        {movieImages.backdrops.length === 0 &&
+          movieImages.posters.length !== 0 && (
+            <img
+              src={posterUrl + movieImages.posters[0].file_path}
+              alt="poster"
+            />
+          )}
+        {movieImages.backdrops.length === 0 &&
+          movieImages.posters.length === 0 && (
+            <p>Image currently unavailable!</p>
+          )}
+        <p>{movieDetails.overview}</p>
+        {ratedMovie ? (
+          <div>
+            <h3>Your Rating:</h3>
+            <p>{ratedMovie.rating}</p>
+          </div>
+        ) : (
+          <div>
+            <h3>Rate Movie:</h3>
+            <ReactStars
+              size={35}
+              count={10}
+              isHalf={true}
+              onChange={ratingChange}
+            />
+          </div>
+        )}
+        <h3>Rating</h3>
+        <p>{movieDetails.vote_average}</p>
+        <h3>Popularity</h3>
+        <p>{movieDetails.popularity}</p>
+        <h3>Language</h3>
+        <p>{movieDetails.original_language}</p>
+        <h3>Production companies</h3>
+        {movieDetails.production_companies.length === 0 ? (
+          <p>Unknown</p>
+        ) : (
+          render
+        )}
+        <button
+          onClick={() => {
+            dispatch(closeModal());
+            dispatch(clearMovieDetails());
+          }}
+        >
+          Close
+        </button>
+        <p>________________________________________________</p>
+      </div>
+    );
+  };
+
+  return <div>{isLoggedIn ? loggedInInterface() : loggedOutInterface()}</div>;
 };
 
 export default MovieDetails;

@@ -12,7 +12,7 @@ const initialState = {
   ratedMovies: [],
 };
 
-const movieReducer = (state: any = initialState, action: Action): object => {
+const movieReducer = (state = initialState, action: Action): object => {
   switch (action.type) {
     case ActionType.GET_MOVIES:
       return {

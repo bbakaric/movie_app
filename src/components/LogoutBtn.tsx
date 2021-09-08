@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { clearUserInfo } from '../store/action-creators';
 
-const LogoutBtn = () => {
+const LogoutBtn = (): JSX.Element => {
   const dispatch = useDispatch();
 
   return (

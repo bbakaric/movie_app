@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadMovies } from '../store/action-creators';
 
-const LoadBtn = (): any => {
-  const [page, setPage] = useState(2);
+interface State {
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}
 
-  const handlePage = () => {
+const LoadBtn = (): JSX.Element => {
+  const [page, setPage] = useState<State['page']>(2);
+
+  const handlePage = (): void => {
     setPage(page + 1);
   };
 

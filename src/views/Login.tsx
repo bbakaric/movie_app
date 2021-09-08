@@ -3,8 +3,9 @@ import { useSelector, RootStateOrAny } from 'react-redux';
 import LogoutBtn from '../components/LogoutBtn';
 import LoginForm from '../components/LoginForm';
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const user = useSelector((state: RootStateOrAny) => state.login.userInfo);
+
   return (
     <div>
       {user.sessionId === '' && <LoginForm />}

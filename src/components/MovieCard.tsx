@@ -3,7 +3,15 @@ import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { getMovies, showMovieDetails } from '../store/action-creators';
 import MovieDetails from '../views/MovieDetails';
 
-const MovieCard = (): any => {
+interface State {
+  id: number;
+  original_title: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+}
+
+const MovieCard = (): JSX.Element => {
   const posterUrl: string = 'https://image.tmdb.org/t/p/w500';
 
   const movies = useSelector((state: RootStateOrAny) => state.movies.movies);
@@ -22,15 +30,9 @@ const MovieCard = (): any => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getMovies());
-  }, []);
-
-  return (
-    <div>
-      <h1>Movies</h1>
-      <div>{showDetails ? <MovieDetails /> : null}</div>
-      {movies.map((movie: any) => (
+  const renderMovieDetails = (): JSX.Element => {
+    return movies.map((movie: State) => {
+      return (
         <div key={movie.id}>
           <h2>{movie.original_title}</h2>
           <img src={posterUrl + movie.poster_path} alt="poster" />
@@ -54,7 +56,19 @@ const MovieCard = (): any => {
             </button>
           )}
         </div>
-      ))}
+      );
+    });
+  };
+
+  useEffect(() => {
+    dispatch(getMovies());
+  }, []);
+
+  return (
+    <div>
+      <h1>Movies</h1>
+      <div>{showDetails ? <MovieDetails /> : null}</div>
+      {renderMovieDetails()}
     </div>
   );
 };

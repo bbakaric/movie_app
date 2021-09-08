@@ -62,19 +62,23 @@ export const loadMovies =
     });
   };
 
-export const showModal = (show: boolean) => async (dispatch: Dispatch) => {
-  dispatch({
-    type: ActionType.SHOW_MODAL,
-    payload: show,
-  });
-};
+export const showModal =
+  (show: boolean) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    dispatch({
+      type: ActionType.SHOW_MODAL,
+      payload: show,
+    });
+  };
 
-export const closeModal = () => async (dispatch: Dispatch) => {
-  dispatch({
-    type: ActionType.CLOSE_MODAL,
-    payload: false,
-  });
-};
+export const closeModal =
+  () =>
+  async (dispatch: Dispatch): Promise<void> => {
+    dispatch({
+      type: ActionType.CLOSE_MODAL,
+      payload: false,
+    });
+  };
 
 export const loadGenres = (): any => async (dispatch: Dispatch) => {
   const response = await movieApi.get(
@@ -87,7 +91,8 @@ export const loadGenres = (): any => async (dispatch: Dispatch) => {
 };
 
 export const getRandomMovie =
-  (genreId: number) => async (dispatch: Dispatch) => {
+  (genreId: number) =>
+  async (dispatch: Dispatch): Promise<void> => {
     const genre = genreId;
 
     dispatch({
@@ -119,15 +124,17 @@ export const clearMovieDetails = (): object => async (dispatch: Dispatch) => {
   });
 };
 
-export const getSessionId = () => async (dispatch: Dispatch) => {
-  const response = await movieApi.get(
-    `/3/authentication/guest_session/new?api_key=${apiKey}`,
-  );
-  dispatch({
-    type: ActionType.GET_SESSION_ID,
-    payload: response.data,
-  });
-};
+export const getSessionId =
+  () =>
+  async (dispatch: Dispatch): Promise<void> => {
+    const response = await movieApi.get(
+      `/3/authentication/guest_session/new?api_key=${apiKey}`,
+    );
+    dispatch({
+      type: ActionType.GET_SESSION_ID,
+      payload: response.data,
+    });
+  };
 
 export const setUserInfo =
   (isLoggedIn: boolean, sessionId: string): object =>
@@ -162,7 +169,8 @@ export const setRatingValue =
   };
 
 export const rateMovie =
-  (movieId, ratingValue: number, sessionId) => async (dispatch: Dispatch) => {
+  (movieId: number, ratingValue: number, sessionId: string) =>
+  async (dispatch: Dispatch): Promise<void> => {
     const response = await movieApi.post(
       `/3/movie/${movieId}/rating?api_key=${apiKey}&guest_session_id=${sessionId}`,
       {

@@ -5,7 +5,7 @@ import LoadBtn from '../components/LoadBtn';
 import RouletteBtn from '../components/RouletteBtn';
 import MovieRouletteModal from './MovieRouletteModal';
 
-const Main = (): any => {
+const Main = (): JSX.Element => {
   const modal = useSelector((state: RootStateOrAny) => state.modal.showModal);
 
   return (
