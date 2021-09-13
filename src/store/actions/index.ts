@@ -52,7 +52,7 @@ interface ShowRandomMovieDetails {
 
 interface SetGenreId {
   type: ActionType.SET_GENRE_ID;
-  payload: string;
+  payload: number;
 }
 
 interface ClearMovieDetails {

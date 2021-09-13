@@ -1,22 +1,25 @@
 import { ActionType } from '../action-types';
+import { Action } from '../actions/index';
 import { Dispatch } from 'redux';
 import movieApi from '../../services/movieApi';
 
 const apiKey: string = '15917a5dc3c9b9fd8555303805fab8a5';
 
-export const getMovies = (): any => async (dispatch: Dispatch) => {
-  const response = await movieApi.get(
-    `/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`,
-  );
-  dispatch({
-    type: ActionType.GET_MOVIES,
-    payload: response.data.results,
-  });
-};
+export const getMovies =
+  () =>
+  async (dispatch: Dispatch<Action>): Promise<void> => {
+    const response = await movieApi.get(
+      `/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`,
+    );
+    dispatch({
+      type: ActionType.GET_MOVIES,
+      payload: response.data.results,
+    });
+  };
 
 export const showMovieDetails =
-  (movieId: number, show: boolean, sessionId: null): any =>
-  async (dispatch: Dispatch) => {
+  (movieId: number, show: boolean, sessionId: null) =>
+  async (dispatch: Dispatch<Action>): Promise<void> => {
     const response = await movieApi.get(
       `/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
     );
@@ -51,8 +54,8 @@ export const showMovieDetails =
   };
 
 export const loadMovies =
-  (page: number): any =>
-  async (dispatch: Dispatch) => {
+  (page: number) =>
+  async (dispatch: Dispatch<Action>): Promise<void> => {
     const response = await movieApi.get(
       `/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`,
     );
@@ -64,7 +67,7 @@ export const loadMovies =
 
 export const showModal =
   (show: boolean) =>
-  async (dispatch: Dispatch): Promise<void> => {
+  async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch({
       type: ActionType.SHOW_MODAL,
       payload: show,
@@ -73,26 +76,28 @@ export const showModal =
 
 export const closeModal =
   () =>
-  async (dispatch: Dispatch): Promise<void> => {
+  async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch({
       type: ActionType.CLOSE_MODAL,
       payload: false,
     });
   };
 
-export const loadGenres = (): any => async (dispatch: Dispatch) => {
-  const response = await movieApi.get(
-    `/3/genre/movie/list?api_key=${apiKey}&language=en-US`,
-  );
-  dispatch({
-    type: ActionType.LOAD_GENRES,
-    payload: response.data.genres,
-  });
-};
+export const loadGenres =
+  () =>
+  async (dispatch: Dispatch<Action>): Promise<void> => {
+    const response = await movieApi.get(
+      `/3/genre/movie/list?api_key=${apiKey}&language=en-US`,
+    );
+    dispatch({
+      type: ActionType.LOAD_GENRES,
+      payload: response.data.genres,
+    });
+  };
 
 export const getRandomMovie =
   (genreId: number) =>
-  async (dispatch: Dispatch): Promise<void> => {
+  async (dispatch: Dispatch<Action>): Promise<void> => {
     const genre = genreId;
 
     dispatch({
@@ -112,21 +117,22 @@ export const getRandomMovie =
     });
   };
 
-export const clearMovieDetails = (): object => async (dispatch: Dispatch) => {
-  dispatch({
-    type: ActionType.CLEAR_MOVIE_DETAILS,
-    payload: {},
-  });
+export const clearMovieDetails =
+  (): object => async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.CLEAR_MOVIE_DETAILS,
+      payload: {},
+    });
 
-  dispatch({
-    type: ActionType.GET_MOVIE_IMAGES,
-    payload: {},
-  });
-};
+    dispatch({
+      type: ActionType.GET_MOVIE_IMAGES,
+      payload: {},
+    });
+  };
 
 export const getSessionId =
   () =>
-  async (dispatch: Dispatch): Promise<void> => {
+  async (dispatch: Dispatch<Action>): Promise<void> => {
     const response = await movieApi.get(
       `/3/authentication/guest_session/new?api_key=${apiKey}`,
     );
@@ -138,7 +144,7 @@ export const getSessionId =
 
 export const setUserInfo =
   (isLoggedIn: boolean, sessionId: string): object =>
-  async (dispatch: Dispatch) => {
+  async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.SET_USER_INFO,
       payload: { isLoggedIn, sessionId },
@@ -147,7 +153,7 @@ export const setUserInfo =
 
 export const clearUserInfo =
   (isLoggedIn: boolean, sessionId: string): object =>
-  async (dispatch: Dispatch) => {
+  async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.DELETE_SESSION,
       payload: {},
@@ -161,7 +167,7 @@ export const clearUserInfo =
 
 export const setRatingValue =
   (ratingValue: number): object =>
-  async (dispatch: Dispatch) => {
+  async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.SET_RATING_VALUE,
       payload: ratingValue,
@@ -170,7 +176,7 @@ export const setRatingValue =
 
 export const rateMovie =
   (movieId: number, ratingValue: number, sessionId: string) =>
-  async (dispatch: Dispatch): Promise<void> => {
+  async (dispatch: Dispatch<Action>): Promise<void> => {
     const response = await movieApi.post(
       `/3/movie/${movieId}/rating?api_key=${apiKey}&guest_session_id=${sessionId}`,
       {
