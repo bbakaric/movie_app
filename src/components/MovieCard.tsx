@@ -9,6 +9,7 @@ interface State {
   poster_path: string;
   release_date: string;
   vote_average: number;
+  original_language: string;
 }
 
 const MovieCard = (): JSX.Element => {
@@ -30,31 +31,43 @@ const MovieCard = (): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  const renderMovieDetails = (): JSX.Element => {
+  const renderMovieCard = (): JSX.Element => {
     return movies.map((movie: State) => {
       return (
-        <div key={movie.id}>
-          <h2>{movie.original_title}</h2>
-          <img src={posterUrl + movie.poster_path} alt="poster" />
-          <p>Release: {parseInt(movie.release_date)}</p>
-          <h3>Rating: {movie.vote_average}</h3>
-          {isLoggedIn ? (
-            <button
-              onClick={() => {
-                dispatch(showMovieDetails(movie.id, true, sessionId));
-              }}
-            >
-              More Details...
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                dispatch(showMovieDetails(movie.id, true, null));
-              }}
-            >
-              More Details...
-            </button>
-          )}
+        <div key={movie.id} className="movie-card">
+          <div className="movie-info">
+            <div className="overlap">
+              <img src={posterUrl + movie.poster_path} alt="poster" />
+              <div className="rating-overlap">
+                <i className="fas fa-star"></i>
+                <h4>{movie.vote_average}</h4>
+              </div>
+            </div>
+            <div className="content">
+              <h2>
+                {movie.original_title} ({parseInt(movie.release_date)})
+              </h2>
+              <br />
+              <p>Language: ({movie.original_language})</p>
+            </div>
+            {isLoggedIn ? (
+              <button
+                onClick={() => {
+                  dispatch(showMovieDetails(movie.id, true, sessionId));
+                }}
+              >
+                More Details...
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  dispatch(showMovieDetails(movie.id, true, null));
+                }}
+              >
+                More Details...
+              </button>
+            )}
+          </div>
         </div>
       );
     });
@@ -64,13 +77,7 @@ const MovieCard = (): JSX.Element => {
     dispatch(getMovies());
   }, []);
 
-  return (
-    <div>
-      <h1>Movies</h1>
-      <div>{showDetails ? <MovieDetails /> : null}</div>
-      {renderMovieDetails()}
-    </div>
-  );
+  return <div className="showcase-mid"> {renderMovieCard()} </div>;
 };
 
 export default MovieCard;
