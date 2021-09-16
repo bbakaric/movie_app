@@ -7,10 +7,12 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'index.bundle.js',
+    publicPath: '/',
   },
   devServer: {
     port: 3000,
     watchContentBase: true,
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],

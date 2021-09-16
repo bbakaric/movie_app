@@ -36,11 +36,14 @@ const MovieCard = (): JSX.Element => {
       return (
         <div key={movie.id} className="movie-card">
           <div className="movie-info">
-            <div className="overlap">
+            <div className="poster">
               <img src={posterUrl + movie.poster_path} alt="poster" />
               <div className="rating-overlap">
                 <i className="fas fa-star"></i>
                 <h4>{movie.vote_average}</h4>
+              </div>
+              <div className="more-info">
+                <i className="fas fa-info-circle"></i>
               </div>
             </div>
             <div className="content">
