@@ -1,16 +1,13 @@
 import React from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
 import MovieCard from '../components/MovieCard';
-import LoadBtn from '../components/LoadBtn';
+import MovieDetails from './MovieDetails';
 
 const Main = (): JSX.Element => {
-  const modal = useSelector((state: RootStateOrAny) => state.modal.showModal);
-
-  return (
-    <div>
-      <MovieCard />
-    </div>
+  const showDetails = useSelector(
+    (state: RootStateOrAny) => state.movies.showMovieDetailsModal,
   );
+  return <div>{showDetails ? <MovieDetails /> : <MovieCard />}</div>;
 };
 
 export default Main;

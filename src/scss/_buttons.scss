@@ -1,9 +1,10 @@
 %btn {
   border-radius: 5px;
-  border-color: $secondary-color;
   padding: 8px 15px;
   margin: 3px;
   border: none;
+  color: #fff;
+  background-color: $secondary-color;
 
   &:hover {
     transform: scale(0.98);
@@ -19,17 +20,29 @@
   }
 }
 
+.btn-load {
+  @extend %btn;
+  padding: 15px 25px;
+  font-weight: bold;
+  border-radius: 25px;
+}
+
 .btn-primary {
   @extend %btn;
-  background-color: $secondary-color;
-  color: #fff;
 }
 
 .btn-secondary {
   @extend %btn;
   @extend %btn-animation;
-  background-color: $secondary-color;
-  color: #fff;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes shake {

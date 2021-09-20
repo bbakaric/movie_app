@@ -45,8 +45,9 @@ p {
 
 .showcase {
   z-index: 3;
-  background-color: rgba($primary-color, 0.8);
-  position: fixed;
+  background-color: rgba($primary-color, 0.9);
+  position: sticky;
+  top: 0;
   height: 75px;
   width: 100%;
   display: flex;
@@ -73,6 +74,7 @@ p {
 .showcase-mid {
   display: flex;
   align-items: center;
+
   justify-content: space-around;
   flex-wrap: wrap;
 }
@@ -91,14 +93,17 @@ p {
 .movie-card:hover {
   background-color: rgba($primary-color, 0.3);
 
-  .movie-info {
-    opacity: 0.5;
+  .poster {
+    opacity: 0.6;
   }
 
-  // box-shadow: inset 0 0 30px 30px $primary-color;
+  .content {
+    opacity: 0.6;
+  }
 
   .more-info {
     display: block;
+    z-index: 1;
   }
 }
 
@@ -130,6 +135,11 @@ p {
     font-size: 65px;
     color: #fff;
   }
+
+  h4 {
+    margin-top: 5px;
+    margin-left: -15px;
+  }
 }
 
 .rating-overlap {
@@ -152,5 +162,21 @@ p {
     text-align: center;
     margin-top: -31px;
     margin-right: -6px;
+  }
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+
+  i {
+    color: #fff;
+    font-size: 50px;
+    animation: spin 2s linear infinite;
   }
 }
