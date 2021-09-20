@@ -6,6 +6,7 @@ import {
   closeModal,
   rateMovie,
   setRatingValue,
+  showMovieCard,
 } from '../store/action-creators';
 
 interface State {
@@ -73,22 +74,21 @@ const MovieDetails = (): JSX.Element => {
 
   const renderDetails = () => (
     <div>
-      <p>
-        <b>{movieDetails.original_title}</b>
-      </p>
-      {movieImages.backdrops.length !== 0 && (
-        <img src={posterUrl + movieDetails.backdrop_path} alt="backdroph" />
-      )}
-      {movieImages.backdrops.length === 0 &&
-        movieImages.posters.length !== 0 && (
-          <img
-            src={posterUrl + movieImages.posters[0].file_path}
-            alt="poster"
-          />
+      <div>
+        <h1>{movieDetails.original_title}</h1>
+        {movieImages.backdrops.length === 0 && (
+          <p className="warning">Image currently unavailable!</p>
         )}
-      {movieImages.backdrops.length === 0 &&
-        movieImages.posters.length === 0 && <p>Image currently unavailable!</p>}
-      <p>{movieDetails.overview}</p>
+        <div
+          className="overview"
+          style={{
+            backgroundImage: `url(${posterUrl + movieDetails.backdrop_path})`,
+          }}
+        >
+          <p>{movieDetails.overview}</p>
+        </div>
+      </div>
+
       <h3>Rating</h3>
       <p>{movieDetails.vote_average}</p>
       <h3>Popularity</h3>
@@ -102,6 +102,7 @@ const MovieDetails = (): JSX.Element => {
         onClick={() => {
           dispatch(closeModal());
           dispatch(clearMovieDetails());
+          dispatch(showMovieCard('flex'));
         }}
       >
         Close
@@ -158,7 +159,11 @@ const MovieDetails = (): JSX.Element => {
     );
   };
 
-  return <div>{isLoggedIn ? loggedInInterface() : loggedOutInterface()}</div>;
+  return (
+    <div className="details-modal">
+      {isLoggedIn ? loggedInInterface() : loggedOutInterface()}
+    </div>
+  );
 };
 
 export default MovieDetails;

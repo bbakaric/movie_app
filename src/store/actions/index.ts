@@ -100,6 +100,11 @@ interface DeleteSession {
   payload: object;
 }
 
+interface ShowMovieCard {
+  type: ActionType.SHOW_MOVIE_CARD;
+  payload: string;
+}
+
 export type Action =
   | GetMoviesAction
   | LoadMoreMoviesAction
@@ -120,4 +125,5 @@ export type Action =
   | SetRatingValue
   | RateMovie
   | GetRatedMovies
-  | DeleteSession;
+  | DeleteSession
+  | ShowMovieCard;

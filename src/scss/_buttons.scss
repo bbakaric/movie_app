@@ -1,7 +1,7 @@
 %btn {
   border-radius: 5px;
   padding: 8px 15px;
-  margin: 3px;
+  margin: 3px 10px;
   border: none;
   color: #fff;
   background-color: $secondary-color;
@@ -34,6 +34,18 @@
 .btn-secondary {
   @extend %btn;
   @extend %btn-animation;
+}
+
+.btn-roll {
+  @extend %btn;
+  margin: 10px 0;
+  width: 50%;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.btn-roulette {
+  @extend %btn;
 }
 
 @keyframes spin {

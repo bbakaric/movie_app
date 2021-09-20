@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { getMovies, showMovieDetails } from '../store/action-creators';
 import LoadBtn from './LoadBtn';
+import RouletteBtn from './RouletteBtn';
 
 interface State {
   id: number;
@@ -23,6 +24,10 @@ const MovieCard = (): JSX.Element => {
 
   const isLoggedIn = useSelector(
     (state: RootStateOrAny) => state.login.userInfo.isLoggedIn,
+  );
+
+  const showMovieCard = useSelector(
+    (state: RootStateOrAny) => state.movies.showMovieCard,
   );
 
   const dispatch = useDispatch();
@@ -87,9 +92,12 @@ const MovieCard = (): JSX.Element => {
   }, []);
 
   return (
-    <div>
-      <div className="showcase-mid">{renderMovieCard()}</div>
-      <LoadBtn />
+    <div className="showcase-mid" style={{ display: `${showMovieCard}` }}>
+      {renderMovieCard()}
+      <div className="btn-align">
+        <LoadBtn />
+        <RouletteBtn />
+      </div>
     </div>
   );
 };

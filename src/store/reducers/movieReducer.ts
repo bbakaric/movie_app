@@ -10,6 +10,7 @@ const initialState = {
   movieRating: 0,
   ratingPostInfo: '',
   ratedMovies: [],
+  showMovieCard: 'flex',
 };
 
 const movieReducer = (state = initialState, action: Action): object => {
@@ -68,6 +69,11 @@ const movieReducer = (state = initialState, action: Action): object => {
       return {
         ...state,
         ratedMovies: action.payload,
+      };
+    case ActionType.SHOW_MOVIE_CARD:
+      return {
+        ...state,
+        showMovieCard: action.payload,
       };
     default:
       return state;

@@ -188,3 +188,12 @@ export const rateMovie =
       payload: response.data,
     });
   };
+
+export const showMovieCard =
+  (show: string) =>
+  async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch({
+      type: ActionType.SHOW_MOVIE_CARD,
+      payload: show,
+    });
+  };
