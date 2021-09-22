@@ -13,7 +13,8 @@ const Main = (): JSX.Element => {
 
   return (
     <div>
-      {showDetails ? <MovieDetails /> : <MovieCard />}
+      <MovieCard />
+      {showDetails && <MovieDetails />}
       {show && <RouletteModal />}
     </div>
   );

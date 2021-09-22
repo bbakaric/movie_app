@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { RootStateOrAny, useSelector } from 'react-redux';
 
 const Nav = (): JSX.Element => {
+  const session = useSelector(
+    (state: RootStateOrAny) => state.login.userInfo.isLoggedIn,
+  );
+
   return (
     <header className="showcase">
       <div className="logo-main">
@@ -12,7 +17,9 @@ const Nav = (): JSX.Element => {
       <div>
         <Link to="/login">
           <button className="btn-primary">
-            <i className="fas fa-sign-in-alt"> Login</i>
+            <i className="fas fa-sign-in-alt">
+              {!session ? ' Login' : ' Logout'}
+            </i>
           </button>
         </Link>
       </div>

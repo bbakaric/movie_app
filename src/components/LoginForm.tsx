@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, RootStateOrAny, useSelector } from 'react-redux';
 import {
   clearUserInfo,
@@ -31,43 +32,23 @@ const LoginForm = (): JSX.Element => {
 
   const renderMessage = (): JSX.Element => {
     return (
-      <div>
-        <h4>
-          If you are new to this app please generate new session so that you can
-          rate movies.
-        </h4>
-        <h4>
-          If you already have session id please enter your session id and login
-          to proceed.
-        </h4>
-        <button onClick={() => dispatch(getSessionId())}>
+      <div className="session">
+        <h2>Please generate a new session so that you can rate movies.</h2>
+        <button
+          className="btn-primary"
+          onClick={() => dispatch(getSessionId())}
+        >
           Generate new session
         </button>
       </div>
     );
   };
 
-  const renderSessionId = (): JSX.Element => {
+  const renderInput = (): JSX.Element => {
     return (
-      <div>
-        <h4>
-          SessionId: {session.guest_session_id} <br /> You should treat this key
-          like a password and keep it secret.
-        </h4>
-      </div>
-    );
-  };
-
-  useEffect(() => {
-    dispatch(clearUserInfo(false, ''));
-  }, []);
-
-  return (
-    <div>
-      {session.success === true ? null : renderMessage()}
-      {session.success === true && renderSessionId()}
-      <div>
-        <h4>Please enter your session id !</h4>
+      <div className="session">
+        <h2>Please enter your session id !</h2>
+        <p>If You already have session ID please enter ID bellow</p>
         <form onSubmit={submit}>
           <label>
             Session ID:
@@ -78,9 +59,30 @@ const LoginForm = (): JSX.Element => {
               onChange={handleSessionId}
             />
           </label>
-          <input type="submit" value="Login" />
+          <input type="submit" value="Login" className="btn-primary" />
         </form>
       </div>
+    );
+  };
+
+  const renderSessionId = (): JSX.Element => {
+    return (
+      <div className="session">
+        <h2>SessionId:</h2>
+        <h4 className="id">{session.guest_session_id}</h4>
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    dispatch(clearUserInfo(false, ''));
+  }, []);
+
+  return (
+    <div className="form-container">
+      {session.success === true ? null : renderMessage()}
+      {session.success === true && renderSessionId()}
+      {renderInput()}
     </div>
   );
 };

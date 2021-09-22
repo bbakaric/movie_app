@@ -6,7 +6,6 @@ import {
   closeModal,
   rateMovie,
   setRatingValue,
-  showMovieCard,
 } from '../store/action-creators';
 
 interface State {
@@ -102,7 +101,6 @@ const MovieDetails = (): JSX.Element => {
         onClick={() => {
           dispatch(closeModal());
           dispatch(clearMovieDetails());
-          dispatch(showMovieCard('flex'));
         }}
       >
         Close

@@ -26,10 +26,6 @@ const MovieCard = (): JSX.Element => {
     (state: RootStateOrAny) => state.login.userInfo.isLoggedIn,
   );
 
-  const showMovieCard = useSelector(
-    (state: RootStateOrAny) => state.movies.showMovieCard,
-  );
-
   const dispatch = useDispatch();
 
   const renderMovieCard = (): JSX.Element => {
@@ -92,7 +88,7 @@ const MovieCard = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="showcase-mid" style={{ display: `${showMovieCard}` }}>
+    <div className="showcase-mid">
       {renderMovieCard()}
       <div className="btn-align">
         <LoadBtn />

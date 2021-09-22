@@ -6,8 +6,17 @@ import LoginForm from '../components/LoginForm';
 const Login = (): JSX.Element => {
   const user = useSelector((state: RootStateOrAny) => state.login.userInfo);
 
+  const renderImage = (): JSX.Element => {
+    return (
+      <div className="form-img">
+        <img src="./src/assets/login_form.jpg" alt="login_logo" />
+      </div>
+    );
+  };
+
   return (
-    <div>
+    <div className="login">
+      {renderImage()}
       {user.sessionId === '' && <LoginForm />}
       {user.sessionId !== '' && <LogoutBtn />}
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearUserInfo } from '../store/action-creators';
 
@@ -6,9 +7,15 @@ const LogoutBtn = (): JSX.Element => {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <h4>You can now proceed to rate movies or you can logout !</h4>
-      <button onClick={() => dispatch(clearUserInfo(false, ''))}>Logout</button>
+    <div className="logout-container">
+      <Link to="/">
+        <button
+          className="btn-logout"
+          onClick={() => dispatch(clearUserInfo(false, ''))}
+        >
+          Logout
+        </button>
+      </Link>
     </div>
   );
 };
