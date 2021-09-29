@@ -13,8 +13,6 @@ interface State {
 
 const LoadBtn = (): JSX.Element => {
   const [page, setPage] = useState<State['page']>(2);
-  const [showBtn, setShowBtn] = useState<State['showBtn']>('block');
-  const [showLoader, setShowLoader] = useState<State['showLoader']>('none');
 
   const handlePage = (): void => {
     setPage(page + 1);
@@ -23,31 +21,19 @@ const LoadBtn = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const loadIcon = () => {
-    setShowBtn('none');
-    setShowLoader('block');
-    setTimeout(() => {
-      setShowLoader('none');
-      dispatch(loadMovies(page));
-    }, 200);
-    setTimeout(() => {
-      setShowBtn('block');
-    }, 400);
+    dispatch(loadMovies(page));
   };
 
   return (
-    <div className="btn-container">
-      <button
-        onClick={() => {
-          handlePage();
-          loadIcon();
-        }}
-        className="btn-load"
-        style={{ display: `${showBtn}` }}
-      >
-        I want more movies !
-      </button>
-      <i className="fas fa-spinner" style={{ display: `${showLoader}` }}></i>
-    </div>
+    <button
+      onClick={() => {
+        handlePage();
+        loadIcon();
+      }}
+      className="btn-load"
+    >
+      LOAD
+    </button>
   );
 };
 

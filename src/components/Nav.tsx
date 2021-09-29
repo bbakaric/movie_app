@@ -16,7 +16,7 @@ const Nav = (): JSX.Element => {
       </div>
       <div>
         <Link to="/login">
-          <button className="btn-primary">
+          <button className="btn-login">
             <i className="fas fa-sign-in-alt">
               {!session ? ' Login' : ' Logout'}
             </i>

@@ -5,7 +5,8 @@ const initialState = {
   showModal: false,
   genres: [],
   movieId: 0,
-  genreId: '',
+  genreId: 28,
+  hideComponent: '',
 };
 
 const modalReducer = (state: object = initialState, action: Action): object => {
@@ -29,6 +30,11 @@ const modalReducer = (state: object = initialState, action: Action): object => {
       return {
         ...state,
         genreId: action.payload,
+      };
+    case ActionType.HIDE_COMPONENT:
+      return {
+        ...state,
+        hideComponent: action.payload,
       };
     default:
       return state;

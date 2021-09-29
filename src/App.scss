@@ -16,11 +16,15 @@ body {
 
 #app {
   position: absolute;
-  overflow: auto;
   height: 100vh;
   width: 100%;
   background: rgba($primary-color, 0.7);
+  overflow-y: scroll;
   z-index: 1;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 img {
@@ -119,8 +123,6 @@ p {
 .more-info {
   display: none;
   position: absolute;
-  border-radius: 50%;
-  top: 0;
   margin-top: 250px;
   margin-left: 143px;
 
@@ -158,27 +160,11 @@ p {
   }
 }
 
-.btn-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  margin: 5px;
-  padding: 5px;
-  text-align: center;
-
-  i {
-    color: #fff;
-    font-size: 50px;
-    animation: spin 2s linear infinite;
-  }
-}
-
 .btn-align {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  margin: 20px 0;
 }
 
 .roulette {
@@ -186,15 +172,15 @@ p {
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   top: 65%;
   left: 50%;
   transform: translate(-50%, -65%);
   width: 25%;
-  background-color: rgba($primary-color, 0.7);
+  background-color: rgba($primary-color, 0.8);
   padding: 15px;
   border-radius: 20px;
-  z-index: 3;
+  z-index: 2;
 
   h3 {
     margin-top: 10px;
@@ -214,12 +200,16 @@ p {
   }
 }
 
+.roulette-icon {
+  font-size: 35px;
+}
+
 .details-modal {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: rgba($secondary-color, 0.7);
+  background-color: rgba($secondary-color, 0.9);
   padding: 15px;
   border-radius: 20px;
   width: 40%;

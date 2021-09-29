@@ -105,6 +105,11 @@ interface ShowMovieCard {
   payload: string;
 }
 
+interface HideComponent {
+  type: ActionType.HIDE_COMPONENT;
+  payload: string;
+}
+
 export type Action =
   | GetMoviesAction
   | LoadMoreMoviesAction
@@ -126,4 +131,5 @@ export type Action =
   | RateMovie
   | GetRatedMovies
   | DeleteSession
-  | ShowMovieCard;
+  | ShowMovieCard
+  | HideComponent;

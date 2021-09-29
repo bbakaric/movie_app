@@ -6,6 +6,7 @@ import {
   closeModal,
   rateMovie,
   setRatingValue,
+  hideComponent,
 } from '../store/action-creators';
 
 interface State {
@@ -44,12 +45,6 @@ const MovieDetails = (): JSX.Element => {
     (state: RootStateOrAny) => state.login.userInfo.isLoggedIn,
   );
 
-  const rating = useSelector(
-    (state: RootStateOrAny) => state.movies.movieRating,
-  );
-
-  console.log(rating);
-
   const ratedMovies = useSelector(
     (state: RootStateOrAny) => state.movies.ratedMovies,
   );
@@ -62,10 +57,6 @@ const MovieDetails = (): JSX.Element => {
       dispatch(rateMovie(movieDetails.id, rating, sessionId));
     }
   };
-
-  // if (rating !== 0) {
-  //   dispatch(rateMovie(movieDetails.id, rating, sessionId));
-  // }
 
   const render = movieDetails.production_companies.map((company) => (
     <p key={company.id}>{company.name}</p>
@@ -84,7 +75,13 @@ const MovieDetails = (): JSX.Element => {
             backgroundImage: `url(${posterUrl + movieDetails.backdrop_path})`,
           }}
         >
-          <p>{movieDetails.overview}</p>
+          <p>
+            {movieDetails.overview.length === 0 ? (
+              <p>Description currently unavailable! </p>
+            ) : (
+              movieDetails.overview
+            )}
+          </p>
         </div>
       </div>
 
@@ -96,15 +93,6 @@ const MovieDetails = (): JSX.Element => {
       <p>{movieDetails.original_language}</p>
       <h3>Production companies</h3>
       {movieDetails.production_companies.length === 0 ? <p>Unknown</p> : render}
-      <button
-        className="btn-primary"
-        onClick={() => {
-          dispatch(closeModal());
-          dispatch(clearMovieDetails());
-        }}
-      >
-        Close
-      </button>
     </div>
   );
 
@@ -160,6 +148,16 @@ const MovieDetails = (): JSX.Element => {
   return (
     <div className="details-modal">
       {isLoggedIn ? loggedInInterface() : loggedOutInterface()}
+      <button
+        className="btn-close"
+        onClick={() => {
+          dispatch(closeModal());
+          dispatch(clearMovieDetails());
+          dispatch(hideComponent('flex'));
+        }}
+      >
+        Close
+      </button>
     </div>
   );
 };

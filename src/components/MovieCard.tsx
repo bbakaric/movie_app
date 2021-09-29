@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { getMovies, showMovieDetails } from '../store/action-creators';
-import LoadBtn from './LoadBtn';
-import RouletteBtn from './RouletteBtn';
+import {
+  getMovies,
+  showMovieDetails,
+  hideComponent,
+} from '../store/action-creators';
 
 interface State {
   id: number;
@@ -15,6 +17,10 @@ interface State {
 
 const MovieCard = (): JSX.Element => {
   const posterUrl: string = 'https://image.tmdb.org/t/p/w500';
+
+  const display = useSelector(
+    (state: RootStateOrAny) => state.modal.hideComponent,
+  );
 
   const movies = useSelector((state: RootStateOrAny) => state.movies.movies);
 
@@ -30,33 +36,20 @@ const MovieCard = (): JSX.Element => {
 
   const renderMovieCard = (): JSX.Element => {
     return movies.map((movie: State) => {
+      const handleClick = () => {
+        {
+          isLoggedIn
+            ? dispatch(showMovieDetails(movie.id, true, sessionId))
+            : dispatch(showMovieDetails(movie.id, true, null));
+        }
+      };
       return (
-        <div key={movie.id} className="movie-card">
+        <div key={movie.id} className="movie-card" onClick={handleClick}>
           <div className="movie-info">
-            {isLoggedIn ? (
-              <div
-                className="more-info"
-                onClick={() => {
-                  dispatch(showMovieDetails(movie.id, true, sessionId));
-                }}
-              >
-                <i className="fas fa-info-circle"></i>
-                <h4>More details ...</h4>
-              </div>
-            ) : (
-              <div
-                className="more-info"
-                onClick={() => {
-                  dispatch(showMovieDetails(movie.id, true, sessionId));
-                }}
-              >
-                <i className="fas fa-info-circle"></i>
-                <h4>More details ...</h4>
-              </div>
-            )}
             <div
               className="more-info"
               onClick={() => {
+                dispatch(hideComponent('none'));
                 dispatch(showMovieDetails(movie.id, true, null));
               }}
             >
@@ -88,12 +81,8 @@ const MovieCard = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="showcase-mid">
+    <div className="showcase-mid" style={{ display: display }}>
       {renderMovieCard()}
-      <div className="btn-align">
-        <LoadBtn />
-        <RouletteBtn />
-      </div>
     </div>
   );
 };

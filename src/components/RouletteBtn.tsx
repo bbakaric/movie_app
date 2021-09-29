@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { showModal, showMovieCard } from '../store/action-creators';
+import {
+  showModal,
+  showMovieCard,
+  hideComponent,
+} from '../store/action-creators';
 
 const RouletteBtn = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -12,9 +16,10 @@ const RouletteBtn = (): JSX.Element => {
         onClick={() => {
           dispatch(showModal(true));
           dispatch(showMovieCard('none'));
+          dispatch(hideComponent('none'));
         }}
       >
-        Movie Roulette
+        <i className="fas fa-random roulette-icon"></i>
       </button>
     </div>
   );

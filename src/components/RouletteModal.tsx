@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import {
   showModal,
@@ -13,6 +13,8 @@ interface State {
 }
 
 const RouletteModal = (): JSX.Element => {
+  const [checkedValue, setCheckedValue] = useState('Action');
+
   const genres = useSelector((state: RootStateOrAny) => state.modal.genres);
 
   const movieId = useSelector((state: RootStateOrAny) => state.modal.movieId);
@@ -21,6 +23,7 @@ const RouletteModal = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(loadGenres());
+    dispatch(getRandomMovie(28));
   }, []);
 
   return (
@@ -32,8 +35,10 @@ const RouletteModal = (): JSX.Element => {
           <input
             type="radio"
             name="genre_name"
-            value={genre.id}
-            onChange={() => {
+            value={genre.name}
+            checked={checkedValue === genre.name}
+            onChange={(e) => {
+              setCheckedValue(e.target.value);
               dispatch(getRandomMovie(genre.id));
             }}
           />

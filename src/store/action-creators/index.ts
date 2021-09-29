@@ -197,3 +197,12 @@ export const showMovieCard =
       payload: show,
     });
   };
+
+export const hideComponent =
+  (show: string) =>
+  async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch({
+      type: ActionType.HIDE_COMPONENT,
+      payload: show,
+    });
+  };
