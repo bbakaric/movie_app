@@ -6,7 +6,6 @@ import {
   closeModal,
   rateMovie,
   setRatingValue,
-  hideComponent,
 } from '../store/action-creators';
 
 interface State {
@@ -22,6 +21,7 @@ interface State {
   popularity: number;
   original_language: string;
   production_companies: { id: number; name: string }[];
+  ratedMovie: { id: number; rating: number }[];
 }
 
 const MovieDetails = (): JSX.Element => {
@@ -58,44 +58,6 @@ const MovieDetails = (): JSX.Element => {
     }
   };
 
-  const render = movieDetails.production_companies.map((company) => (
-    <p key={company.id}>{company.name}</p>
-  ));
-
-  const renderDetails = () => (
-    <div>
-      <div>
-        <h1>{movieDetails.original_title}</h1>
-        {movieImages.backdrops.length === 0 && (
-          <p className="warning">Image currently unavailable!</p>
-        )}
-        <div
-          className="overview"
-          style={{
-            backgroundImage: `url(${posterUrl + movieDetails.backdrop_path})`,
-          }}
-        >
-          <p>
-            {movieDetails.overview.length === 0 ? (
-              <p>Description currently unavailable! </p>
-            ) : (
-              movieDetails.overview
-            )}
-          </p>
-        </div>
-      </div>
-
-      <h3>Rating</h3>
-      <p>{movieDetails.vote_average}</p>
-      <h3>Popularity</h3>
-      <p>{movieDetails.popularity}</p>
-      <h3>Language</h3>
-      <p>{movieDetails.original_language}</p>
-      <h3>Production companies</h3>
-      {movieDetails.production_companies.length === 0 ? <p>Unknown</p> : render}
-    </div>
-  );
-
   const ratedMoviesId = ratedMovies.map((movie: State) => movie.id);
 
   let ratedId: null | number = null;
@@ -117,22 +79,17 @@ const MovieDetails = (): JSX.Element => {
 
   const ratedMovie = ratedMovieDetails(ratedId, ratedMovies);
 
-  const loggedOutInterface = (): JSX.Element => {
-    return <div>{renderDetails()}</div>;
-  };
-
   const loggedInInterface = (): JSX.Element => {
     return (
       <div>
-        {renderDetails()}
         {ratedMovie ? (
           <div>
-            <h3>Your Rating:</h3>
-            <p>{ratedMovie.rating}</p>
+            <h3>
+              Your Rating: <p>{ratedMovie.rating}</p>
+            </h3>
           </div>
         ) : (
-          <div>
-            <h3>Rate Movie:</h3>
+          <div style={{ marginTop: '-20px' }}>
             <ReactStars
               size={35}
               count={10}
@@ -145,21 +102,69 @@ const MovieDetails = (): JSX.Element => {
     );
   };
 
-  return (
-    <div className="details-modal">
-      {isLoggedIn ? loggedInInterface() : loggedOutInterface()}
-      <button
-        className="btn-close"
-        onClick={() => {
-          dispatch(closeModal());
-          dispatch(clearMovieDetails());
-          dispatch(hideComponent('flex'));
-        }}
-      >
-        Close
-      </button>
-    </div>
-  );
+  const render = movieDetails.production_companies.map((company) => (
+    <p key={company.id}>{`${company.name},\u00A0`} </p>
+  ));
+
+  const renderDetails = () => {
+    return (
+      <div className="modal-content">
+        <h1>{movieDetails.original_title}</h1>
+        <div>
+          {movieImages.backdrops.length === 0 && (
+            <p className="warning">Image currently unavailable!</p>
+          )}
+          <div
+            className="overview"
+            style={{
+              backgroundImage: `url(${posterUrl + movieDetails.backdrop_path})`,
+            }}
+          >
+            <p>
+              {movieDetails.overview.length === 0
+                ? 'Description currently unavailable!'
+                : movieDetails.overview}
+            </p>
+          </div>
+        </div>
+        <div className="details-wrapper">
+          <div className="details-content">
+            <h3>
+              Rating: <p>{movieDetails.vote_average}</p>
+            </h3>
+            <h3>
+              Popularity: <p>{movieDetails.popularity}</p>
+            </h3>
+
+            <h3>
+              Language: <p>{movieDetails.original_language}</p>
+            </h3>
+
+            <h3>
+              Production companies:{' '}
+              {movieDetails.production_companies.length === 0 ? (
+                <p>Unknown</p>
+              ) : (
+                render
+              )}
+            </h3>
+          </div>
+          {isLoggedIn && loggedInInterface()}
+        </div>
+        <button
+          className="btn-close"
+          onClick={() => {
+            dispatch(closeModal());
+            dispatch(clearMovieDetails());
+          }}
+        >
+          Close
+        </button>
+      </div>
+    );
+  };
+
+  return <div className="details-modal">{renderDetails()}</div>;
 };
 
 export default MovieDetails;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, RootStateOrAny, useSelector } from 'react-redux';
 import {
   clearUserInfo,
+  closeModal,
   getSessionId,
   setUserInfo,
 } from '../store/action-creators';
@@ -14,6 +15,9 @@ interface State {
 
 const LoginForm = (): JSX.Element => {
   const [sessionId, setSessionId] = useState<State['sessionId']>('');
+  const [display, setDisplay] = useState('none');
+
+  const history = useHistory();
 
   const session = useSelector(
     (state: RootStateOrAny) => state.login.sessionInfo,
@@ -27,7 +31,15 @@ const LoginForm = (): JSX.Element => {
 
   const submit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch(setUserInfo(true, sessionId));
+    if (sessionId.trim() === '') {
+      {
+        setDisplay('red');
+      }
+    } else {
+      dispatch(setUserInfo(true, sessionId));
+      dispatch(closeModal());
+      history.push('/');
+    }
   };
 
   const renderMessage = (): JSX.Element => {
@@ -49,17 +61,21 @@ const LoginForm = (): JSX.Element => {
       <div className="session">
         <h2>Please enter your session id !</h2>
         <p>If You already have session ID please enter ID bellow</p>
-        <form onSubmit={submit}>
+        <form onSubmit={submit} className="form">
           <label>
             Session ID:
             <input
               type="password"
               name="sessionId"
               value={sessionId}
+              placeholder="Session ID"
               onChange={handleSessionId}
+              style={{ borderColor: display }}
             />
           </label>
-          <input type="submit" value="Login" className="btn-primary" />
+          <button type="submit" value="Login" className="btn-login">
+            Login
+          </button>
         </form>
       </div>
     );

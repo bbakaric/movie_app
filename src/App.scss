@@ -48,7 +48,7 @@ p {
 }
 
 .showcase {
-  z-index: 3;
+  z-index: 4;
   background-color: rgba($primary-color, 0.9);
   position: sticky;
   top: 0;
@@ -89,6 +89,7 @@ p {
 
 .movie-card:hover {
   background-color: rgba($primary-color, 0.3);
+  cursor: pointer;
 
   .poster {
     opacity: 0.6;
@@ -210,20 +211,57 @@ p {
   justify-content: center;
   flex-direction: column;
   background-color: rgba($secondary-color, 0.9);
-  padding: 15px;
-  border-radius: 20px;
-  width: 40%;
+  width: 100%;
+  height: 100vh;
   position: fixed;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%, -65%);
-  z-index: 2;
+  top: 0;
+  left: 0;
+  z-index: 3;
+
+  .modal-content {
+    margin-top: 75px;
+    width: 70%;
+    height: fit-content;
+    padding: 25px;
+    box-shadow: 0 0 50px $primary-color;
+
+    .details-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 5px;
+
+      * {
+        margin: 5px 0;
+      }
+
+      p {
+        display: inline-block;
+        font-weight: normal;
+      }
+    }
+
+    .details-content {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 70%;
+
+      p {
+        display: inline-block;
+        font-weight: normal;
+      }
+    }
+  }
 
   .overview {
     display: flex;
     align-items: flex-end;
+    justify-content: flex-start;
+    margin-top: 10px;
     width: 100%;
-    height: 300px;
+    height: 400px;
     background-size: cover;
 
     p {

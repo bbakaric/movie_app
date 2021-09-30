@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import {
-  getMovies,
-  showMovieDetails,
-  hideComponent,
-} from '../store/action-creators';
+import { getMovies, showMovieDetails } from '../store/action-creators';
 
 interface State {
   id: number;
@@ -46,13 +42,7 @@ const MovieCard = (): JSX.Element => {
       return (
         <div key={movie.id} className="movie-card" onClick={handleClick}>
           <div className="movie-info">
-            <div
-              className="more-info"
-              onClick={() => {
-                dispatch(hideComponent('none'));
-                dispatch(showMovieDetails(movie.id, true, null));
-              }}
-            >
+            <div className="more-info">
               <i className="fas fa-info-circle"></i>
               <h4>More details ...</h4>
             </div>
