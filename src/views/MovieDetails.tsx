@@ -1,11 +1,12 @@
 import React from 'react';
-import ReactStars from 'react-rating-stars-component';
+import StarRating from 'react-svg-star-rating';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
 import {
   clearMovieDetails,
   closeModal,
   rateMovie,
   setRatingValue,
+  hideComponent,
 } from '../store/action-creators';
 
 interface State {
@@ -51,10 +52,10 @@ const MovieDetails = (): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  const ratingChange = (rating: number): void => {
-    dispatch(setRatingValue(rating));
-    if (rating !== 0) {
-      dispatch(rateMovie(movieDetails.id, rating, sessionId));
+  const ratingChange = (value: number): void => {
+    dispatch(setRatingValue(value));
+    if (value !== 0) {
+      dispatch(rateMovie(movieDetails.id, value, sessionId));
     }
   };
 
@@ -89,12 +90,14 @@ const MovieDetails = (): JSX.Element => {
             </h3>
           </div>
         ) : (
-          <div style={{ marginTop: '-20px' }}>
-            <ReactStars
+          <div>
+            <StarRating
+              unit={'half'}
               size={35}
               count={10}
-              isHalf={true}
-              onChange={ratingChange}
+              handleOnClick={ratingChange}
+              hoverColor={'#FFD700'}
+              activeColor={'#fff'}
             />
           </div>
         )}
@@ -156,6 +159,7 @@ const MovieDetails = (): JSX.Element => {
           onClick={() => {
             dispatch(closeModal());
             dispatch(clearMovieDetails());
+            dispatch(hideComponent('flex'));
           }}
         >
           Close

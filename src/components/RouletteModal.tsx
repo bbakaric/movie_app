@@ -5,6 +5,7 @@ import {
   loadGenres,
   showMovieDetails,
   getRandomMovie,
+  hideComponent,
 } from '../store/action-creators';
 
 interface State {
@@ -21,6 +22,11 @@ const RouletteModal = (): JSX.Element => {
 
   const dispatch = useDispatch();
 
+  const closeRoulette = () => {
+    dispatch(showModal(false));
+    dispatch(hideComponent('flex'));
+  };
+
   useEffect(() => {
     dispatch(loadGenres());
     dispatch(getRandomMovie(28));
@@ -28,32 +34,37 @@ const RouletteModal = (): JSX.Element => {
 
   return (
     <div className="roulette">
-      <h1>Movie Roulette</h1>
-      <h3>Select genre:</h3>
-      {genres.map((genre: State) => (
-        <div key={genre.id} className="genres">
-          <input
-            type="radio"
-            name="genre_name"
-            value={genre.name}
-            checked={checkedValue === genre.name}
-            onChange={(e) => {
-              setCheckedValue(e.target.value);
-              dispatch(getRandomMovie(genre.id));
-            }}
-          />
-          <label htmlFor="">{genre.name}</label>
-        </div>
-      ))}
-      <button
-        className="btn-roll"
-        onClick={() => {
-          dispatch(showModal(false));
-          dispatch(showMovieDetails(movieId, true, null));
-        }}
-      >
-        Roll
-      </button>
+      <div className="modal-header">
+        <h1>Movie Roulette</h1>
+        <i className="far fa-times-circle" onClick={closeRoulette}></i>
+      </div>
+      <div className="content">
+        <h3>Select genre:</h3>
+        {genres.map((genre: State) => (
+          <div key={genre.id} className="genres">
+            <input
+              type="radio"
+              name="genre_name"
+              value={genre.name}
+              checked={checkedValue === genre.name}
+              onChange={(e) => {
+                setCheckedValue(e.target.value);
+                dispatch(getRandomMovie(genre.id));
+              }}
+            />
+            <label htmlFor="">{genre.name}</label>
+          </div>
+        ))}
+        <button
+          className="btn-roll"
+          onClick={() => {
+            dispatch(showModal(false));
+            dispatch(showMovieDetails(movieId, true, null));
+          }}
+        >
+          Roll
+        </button>
+      </div>
     </div>
   );
 };

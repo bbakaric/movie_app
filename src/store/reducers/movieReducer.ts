@@ -3,7 +3,7 @@ import { Action } from '../actions/index';
 
 const initialState = {
   movies: [],
-  posterUrl: 'https://image.tmdb.org/t/p/w500',
+  posterUrl: 'https://image.tmdb.org/t/p/original',
   movieDetails: {},
   movieImages: {},
   showMovieDetailsModal: false,
