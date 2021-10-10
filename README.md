@@ -1,7 +1,7 @@
 # movie_app
 Movie browsing + movie roulette feature
 
-Project was bit of a long one to create. I have learned many new tehnologies with this project and commit myseld to many hours of online tutorials, articles etc. 
+Project was bit of a long one to create. I have learned many new tehnologies with this project and commit myself to many hours of online tutorials, articles etc. 
 At the end I was left with new experience and knowledge.
 
 Project setup steps:
