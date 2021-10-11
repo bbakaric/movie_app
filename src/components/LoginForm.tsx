@@ -45,7 +45,7 @@ const LoginForm = (): JSX.Element => {
   const renderMessage = (): JSX.Element => {
     return (
       <div className="session">
-        <h2>Please generate a new session so that you can rate movies.</h2>
+        <h2>Please generate a new session if you want to rate movies.</h2>
         <button
           className="btn-primary"
           onClick={() => dispatch(getSessionId())}

@@ -15,7 +15,7 @@ const Nav = (): JSX.Element => {
     dispatch(closeModal());
   };
 
-  const renderLoginBtn = () => {
+  const renderLoginBtn = (): JSX.Element => {
     return (
       <button className="btn-login">
         <i className="fas fa-sign-in-alt"> Login</i>
@@ -23,7 +23,7 @@ const Nav = (): JSX.Element => {
     );
   };
 
-  const renderLogoutBtn = () => {
+  const renderLogoutBtn = (): JSX.Element => {
     return (
       <button className="btn-login" onClick={() => logout()}>
         <i className="fas fa-sign-in-alt"> Logout</i>

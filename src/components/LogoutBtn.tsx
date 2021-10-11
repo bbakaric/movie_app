@@ -7,16 +7,14 @@ const LogoutBtn = (): JSX.Element => {
   const dispatch = useDispatch();
 
   return (
-    <div className="logout-container">
-      <Link to="/">
-        <button
-          className="btn-logout"
-          onClick={() => dispatch(clearUserInfo(false, ''))}
-        >
-          Logout
-        </button>
-      </Link>
-    </div>
+    <Link to="/">
+      <button
+        className="btn-logout"
+        onClick={() => dispatch(clearUserInfo(false, ''))}
+      >
+        Logout
+      </button>
+    </Link>
   );
 };
 

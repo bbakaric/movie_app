@@ -12,10 +12,11 @@ $mobile-l: 425px;
 @media (max-width: 1510px) {
   .login {
     width: 50%;
-  }
-  .form-container {
-    .form {
-      text-align: center;
+
+    .form-container {
+      .form {
+        text-align: center;
+      }
     }
   }
 }
@@ -73,10 +74,10 @@ $mobile-l: 425px;
     img {
       height: 50px;
     }
-  }
 
-  .btn-login {
-    font-size: 12px;
+    .btn-login {
+      font-size: 12px;
+    }
   }
 }
 

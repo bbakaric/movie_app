@@ -105,11 +105,11 @@ const MovieDetails = (): JSX.Element => {
     );
   };
 
-  const render = movieDetails.production_companies.map((company) => (
-    <p key={company.id}>{`${company.name},\u00A0`} </p>
+  const render = movieDetails.production_companies.map((company, index) => (
+    <p key={company.id}>{(index ? ', ' : '') + company.name}</p>
   ));
 
-  const renderDetails = () => {
+  const renderDetails = (): JSX.Element => {
     return (
       <div className="modal-content">
         <h1>{movieDetails.original_title}</h1>
